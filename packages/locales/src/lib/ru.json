@@ -1,0 +1,10 @@
+{
+  "validation": {
+    "email": {
+      "invalid": "Неверный email"
+    },
+    "password": {
+      "tooShort": "Пароль должен быть минимум {length} символов"
+    }
+  }
+}

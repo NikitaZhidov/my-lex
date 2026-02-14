@@ -1,0 +1,27 @@
+{
+  "common": {
+    "name": "Name"
+  },
+  "validation": {
+    "failed": "Validation failed",
+    "email": {
+      "invalid": "Invalid email address"
+    },
+    "password": {
+      "tooShort": "Password must be at least {length} characters"
+    }
+  },
+  "exceptions": {
+    "userWithThatEmailAlreadyExists": "User with that email already exists",
+    "noUserWithThatEmail": "User with that email doesn't exist",
+    "serverError": "Internal server error",
+    "unknownAuthProvider": "Unknown authentication provider",
+    "incorrectPassword": "Incorrect password",
+    "unauthorizedUser": "You are no authorized. Please log in to access this resource.",
+    "userNotFound": "User not found"
+  },
+  "fields": {
+    "name": "{{ common.Name }}",
+    "email": "Email"
+  }
+}

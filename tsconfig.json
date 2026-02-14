@@ -8,6 +8,18 @@
     },
     {
       "path": "./apps/web"
+    },
+    {
+      "path": "./apps/api-e2e"
+    },
+    {
+      "path": "./apps/api"
+    },
+    {
+      "path": "./packages/shared-models"
+    },
+    {
+      "path": "./packages/locales"
     }
   ]
 }
