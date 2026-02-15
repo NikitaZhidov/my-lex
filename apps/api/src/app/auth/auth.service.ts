@@ -1,96 +1,91 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { type Request, type Response } from 'express';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
+import { hash, verify } from 'argon2';
 
 import { CreateUser, LoginUser, UserProfile } from '@my-lex/shared-models';
 
-import { UsersService } from '../users/users.service';
+import { UsersRepository } from '../users/users.repository';
+
+import { LoginHandler } from './features/login-handler/login-handler';
 
 @Injectable()
 export class AuthService {
-  constructor(
-    private readonly usersSerivce: UsersService,
-    private readonly configService: ConfigService,
-  ) {}
+  constructor(private readonly usersRepository: UsersRepository) {}
 
   async register(
     createUserDto: Omit<CreateUser, 'passwordRepeat'>,
     picture?: UserProfile['picture'],
   ) {
-    return this.usersSerivce.create(createUserDto, picture ?? undefined);
-  }
+    const existingUser = await this.usersRepository.findByEmail(
+      createUserDto.email,
+    );
 
-  async loginByCredentials(loginUser: LoginUser, session: Request['session']) {
-    const user = await this.usersSerivce.getUserByCredentials(loginUser);
+    if (existingUser) {
+      throw new ConflictException('exceptions.userWithThatEmailAlreadyExists');
+    }
 
-    await this.saveUserSession(user.id, session);
+    const passwordHash = createUserDto.password
+      ? await hash(createUserDto.password)
+      : '';
+
+    await this.usersRepository.create({
+      email: createUserDto.email,
+      name: createUserDto.name,
+      password: passwordHash,
+      picture: picture ?? undefined,
+    });
+
     return true;
   }
 
-  async loginOrRegister(user: UserProfile, session: Request['session']) {
-    const existingUser = await this.usersSerivce.findByEmail(user.email);
+  async loginByCredentials(loginUser: LoginUser, loginHandler: LoginHandler) {
+    const user = await this.usersRepository.findByEmail(loginUser.email);
 
-    if (existingUser) {
-      await this.saveUserSession(existingUser.id, session);
-
-      return existingUser;
+    if (!user) {
+      throw new NotFoundException('exceptions.noUserWithThatEmail');
     }
 
-    const createdUser = await this.register(
-      {
-        email: user.email,
-        name: user.name,
-        password: '',
-      },
-      user.picture,
+    const isValidPassword = await verify(user.password, loginUser.password);
+
+    if (!isValidPassword) {
+      throw new UnauthorizedException('exceptions.incorrectPassword');
+    }
+
+    await loginHandler.persist(user.id);
+
+    return true;
+  }
+
+  async loginOrRegister(userToLogin: UserProfile, loginHandler: LoginHandler) {
+    const existingUser = await this.usersRepository.findByEmail(
+      userToLogin.email,
     );
 
-    await this.saveUserSession(createdUser.id, session);
+    if (existingUser) {
+      await loginHandler.persist(userToLogin.id);
 
-    return createdUser;
+      return true;
+    }
+
+    const createdUser = await this.usersRepository.create({
+      email: userToLogin.email,
+      name: userToLogin.name,
+      password: '',
+      picture: userToLogin.picture ?? undefined,
+    });
+
+    await loginHandler.persist(createdUser.id);
+
+    return true;
   }
 
-  async logout(session: Request['session'], response: Response) {
-    return new Promise<void>((resolve, reject) => {
-      session.destroy(err => {
-        if (err) {
-          console.error(err);
+  async logout(loginHandler: LoginHandler) {
+    await loginHandler.clear();
 
-          return reject(
-            new InternalServerErrorException(
-              'The session has not been terminated. Something wrong with the server or the session has already been terminated.',
-            ),
-          );
-        }
-      });
-
-      response.clearCookie(
-        this.configService.getOrThrow<string>('SESSION_NAME'),
-      );
-      resolve();
-    });
-  }
-
-  private async saveUserSession(
-    userId: UserProfile['id'],
-    session: Request['session'],
-  ) {
-    return new Promise((resolve, reject) => {
-      session.userId = userId;
-
-      session.save(err => {
-        if (err) {
-          console.error(err);
-
-          return reject(
-            new InternalServerErrorException(
-              'The session has not been saved. Please, check the settings of the session.',
-            ),
-          );
-        }
-      });
-
-      resolve(userId);
-    });
+    return true;
   }
 }

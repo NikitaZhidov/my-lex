@@ -2,14 +2,14 @@ import { Injectable } from '@nestjs/common';
 
 import { UserProfile } from '@my-lex/shared-models';
 
-import { User } from '../../generated/prisma/client';
+import { UserEntity } from './domain-entities/user-entity';
 
 @Injectable()
 export class UsersMapper {
-  toUserProfile(user: User): UserProfile {
+  toUserProfileDto(user: UserEntity): UserProfile {
     return {
       email: user.email,
-      name: user.displayName,
+      name: user.name,
       id: user.id,
       picture: user.picture,
     };

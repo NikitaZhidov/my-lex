@@ -1,9 +1,9 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { type Request } from 'express';
 
 import { OAuthProvider } from '@my-lex/shared-models';
 
 import { AuthService } from '../auth/auth.service';
+import { LoginHandler } from '../auth/features/login-handler/login-handler';
 
 import { OAUTH_SETTINGS, type OAuthSettings } from './oauth.constants';
 
@@ -24,12 +24,16 @@ export class OAuthService {
   async loginUserByCode(
     providerName: OAuthProvider,
     code: string,
-    session: Request['session'],
+    loginHandler: LoginHandler,
   ) {
     const provider = this.getProvider(providerName);
     const profile = await provider.getProfileInfoByCode(code);
 
-    return this.authService.loginOrRegister(profile, session);
+    if (!profile) {
+      throw new NotFoundException('exceptions.userNotFound');
+    }
+
+    return this.authService.loginOrRegister(profile, loginHandler);
   }
 
   private getProvider(providerName: OAuthProvider) {

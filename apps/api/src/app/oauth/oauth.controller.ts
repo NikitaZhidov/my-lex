@@ -1,13 +1,18 @@
-import { Controller, Get, Param, Query, Session } from '@nestjs/common';
-import { type Request } from 'express';
+import { Controller, Get, Param, Query, Res, Session } from '@nestjs/common';
+import { type Request, type Response } from 'express';
 
 import { type OAuthProvider } from '@my-lex/shared-models';
+
+import { LoginHandlerFactory } from '../auth/features/login-handler/login-handler';
 
 import { OAuthService } from './oauth.service';
 
 @Controller('oauth')
 export class OAuthController {
-  constructor(private readonly oauthService: OAuthService) {}
+  constructor(
+    private readonly oauthService: OAuthService,
+    private readonly loginHandlerFactory: LoginHandlerFactory,
+  ) {}
 
   @Get('connect/:provider')
   getAuthUrl(@Param('provider') provider: OAuthProvider) {
@@ -21,7 +26,12 @@ export class OAuthController {
     @Param('provider') provider: OAuthProvider,
     @Query('code') code: string,
     @Session() session: Request['session'],
+    @Res() res: Response,
   ) {
-    return this.oauthService.loginUserByCode(provider, code, session);
+    return this.oauthService.loginUserByCode(
+      provider,
+      code,
+      this.loginHandlerFactory.create(session, res),
+    );
   }
 }
