@@ -1,6 +1,6 @@
 import { NextIntlClientProvider } from 'next-intl';
 
-import './global.css';
+import '../styles/global.css';
 
 export const metadata = {
   title: 'Welcome to ',
