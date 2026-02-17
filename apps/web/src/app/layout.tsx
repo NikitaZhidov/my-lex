@@ -1,6 +1,6 @@
-import { NextIntlClientProvider } from 'next-intl';
-
 import '../styles/global.css';
+
+import MainProvider from '@/shared/providers/MainProvider';
 
 export const metadata = {
   title: 'Welcome to ',
@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body>
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <MainProvider>{children}</MainProvider>
       </body>
     </html>
   );

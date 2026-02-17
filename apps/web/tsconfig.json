@@ -49,6 +49,12 @@
   "references": [
     {
       "path": "../../packages/locales"
+    },
+    {
+      "path": "../../packages/shared-models"
+    },
+    {
+      "path": "../../packages/ui"
     }
   ]
 }

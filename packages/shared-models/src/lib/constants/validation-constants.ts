@@ -1,0 +1,3 @@
+export const VALIDATION_CONSTANTS = {
+  PASSWORD_MINIMUM: 6,
+};

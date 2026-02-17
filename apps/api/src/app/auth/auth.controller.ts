@@ -22,18 +22,18 @@ export class AuthController {
   ) {}
 
   @Post('register')
-  register(@Body() registerDto: RegisterDto) {
+  async register(@Body() registerDto: RegisterDto) {
     return this.authService.register(registerDto);
   }
 
   @Post('login')
   @HttpCode(HttpStatus.OK)
-  login(
+  async login(
     @Body() loginDto: LoginDto,
     @Session() session: Request['session'],
-    @Res() res: Response,
+    @Res({ passthrough: true }) res: Response,
   ) {
-    return this.authService.loginByCredentials(
+    await this.authService.loginByCredentials(
       loginDto,
       this.loginHandlerFactory.create(session, res),
     );
@@ -41,7 +41,7 @@ export class AuthController {
 
   @Post('logout')
   @HttpCode(HttpStatus.OK)
-  logout(
+  async logout(
     @Session() session: Request['session'],
     @Res({ passthrough: true }) res: Response,
   ) {

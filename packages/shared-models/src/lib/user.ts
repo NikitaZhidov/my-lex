@@ -1,5 +1,6 @@
 import { z } from 'zod';
 
+import { VALIDATION_CONSTANTS } from './constants';
 import { IdEntity } from './id-entity';
 
 export const CreateUserSchema = z
@@ -14,11 +15,15 @@ export const CreateUserSchema = z
 
     password: z
       .string({ error: 'validation.string.invalid' })
-      .min(6, { error: 'validation.password.tooShort' }),
+      .min(VALIDATION_CONSTANTS.PASSWORD_MINIMUM, {
+        error: 'validation.password.tooShort',
+      }),
 
     passwordRepeat: z
       .string({ error: 'validation.string.invalid' })
-      .min(6, { error: 'validation.passwordRepeat.tooShort' }),
+      .min(VALIDATION_CONSTANTS.PASSWORD_MINIMUM, {
+        error: 'validation.passwordRepeat.tooShort',
+      }),
   })
   .refine(data => data.password === data.passwordRepeat, {
     error: 'validation.password.notMatch',
@@ -34,7 +39,9 @@ export const LoginUserSchema = z.object({
 
   password: z
     .string({ error: 'validation.string.invalid' })
-    .min(6, { error: 'validation.password.tooShort' }),
+    .min(VALIDATION_CONSTANTS.PASSWORD_MINIMUM, {
+      error: 'validation.password.tooShort',
+    }),
 });
 
 export type LoginUser = z.infer<typeof LoginUserSchema>;

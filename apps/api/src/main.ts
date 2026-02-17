@@ -14,6 +14,11 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService);
 
+  app.enableCors({
+    origin: configService.getOrThrow('WEB_APP_BASE_URL'),
+    credentials: true,
+  });
+
   const redisClient = createClient({
     url: configService.getOrThrow<string>('REDIS_URL'),
   });

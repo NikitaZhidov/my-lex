@@ -1,10 +1,32 @@
 {
+  "auth": {
+    "signUp": "Регистрация",
+    "login": "Вход",
+      "loginWithGoogle": "Войти через Google",
+    "loginDescription": "Введите ваш email ниже, чтобы войти в аккаунт",
+    "password": "Пароль",
+    "email": "Email"
+  },
+  "common": {
+    "name": "Имя"
+  },
   "validation": {
+    "failed": "Ошибка валидации",
     "email": {
-      "invalid": "Неверный email"
+      "invalid": "Некорректный email"
     },
     "password": {
-      "tooShort": "Пароль должен быть минимум {length} символов"
+      "tooShort": "Пароль должен содержать минимум {length} символов"
     }
+  },
+  "exceptions": {
+    "userWithThatEmailAlreadyExists": "Пользователь с таким email уже существует",
+    "noUserWithThatEmail": "Пользователь с таким email не найден",
+    "serverError": "Внутренняя ошибка сервера",
+    "unknownAuthProvider": "Неизвестный провайдер аутентификации",
+    "incorrectPassword": "Неверный пароль",
+    "unauthorizedUser": "Вы не авторизованы. Пожалуйста, войдите в систему для доступа к этому ресурсу.",
+    "userNotFound": "Пользователь не найден",
+    "somethingWentWrong": "Что-то пошло не так. Пожалуйста, попробуйте позже."
   }
 }
