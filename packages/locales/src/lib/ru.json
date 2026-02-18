@@ -2,10 +2,13 @@
   "auth": {
     "signUp": "Регистрация",
     "login": "Вход",
-      "loginWithGoogle": "Войти через Google",
+    "loginWithGoogle": "Войти через Google",
     "loginDescription": "Введите ваш email ниже, чтобы войти в аккаунт",
+    "registerDescription": "Создайте новый аккаунт, чтобы начать",
     "password": "Пароль",
-    "email": "Email"
+    "repeatPassword": "Повторите пароль",
+    "email": "Email",
+    "registrationWasSuccessful": "Регистрация прошла успешно"
   },
   "common": {
     "name": "Имя"
@@ -16,7 +19,8 @@
       "invalid": "Некорректный email"
     },
     "password": {
-      "tooShort": "Пароль должен содержать минимум {length} символов"
+      "tooShort": "Пароль должен содержать минимум {length} символов",
+      "notMatch": "Пароли не совпадают"
     }
   },
   "exceptions": {

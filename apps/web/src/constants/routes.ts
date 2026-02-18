@@ -1,4 +1,4 @@
 export const APP_ROUTES = {
-  REGISTER: 'register',
-  LOGIN: 'login',
+  REGISTER: '/register',
+  LOGIN: '/login',
 };

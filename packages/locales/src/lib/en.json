@@ -4,8 +4,11 @@
     "login": "Login",
     "loginWithGoogle": "Login with Google",
     "loginDescription": "Enter your email below to login to your account",
+    "registerDescription": "Create a new account to get started",
     "password": "Password",
-    "email": "Email"
+    "repeatPassword": "Repeat password",
+    "email": "Email",
+    "registrationWasSuccessful": "Registration was successful"
   },
   "common": {
     "name": "Name"
@@ -16,7 +19,8 @@
       "invalid": "Invalid email address"
     },
     "password": {
-      "tooShort": "Password must be at least {length} characters"
+      "tooShort": "Password must be at least {length} characters",
+      "notMatch": "The passwords do not match"
     }
   },
   "exceptions": {

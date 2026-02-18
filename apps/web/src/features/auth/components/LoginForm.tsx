@@ -21,7 +21,10 @@ import {
   Input,
 } from '@my-lex/ui';
 
-import { useLoginMutation } from '../hooks/useLoginMutation';
+import {
+  useLoginMutation,
+  useLoginWithProvider,
+} from '../hooks/useLoginMutation';
 
 import { APP_ROUTES } from '@/constants';
 import ErrorAlerts from '@/shared/ui/ErrorAlerts';
@@ -35,6 +38,8 @@ const LoginForm = ({ className }: LoginFormProps) => {
   const t = useTranslations();
 
   const { login, isLoginLoading, parsedError } = useLoginMutation();
+  const { login: loginWithProvider, isLoading: isLoginWithProviderLoading } =
+    useLoginWithProvider();
 
   const form = useForm({
     resolver: zodResolver(LoginUserSchema),
@@ -116,7 +121,8 @@ const LoginForm = ({ className }: LoginFormProps) => {
           </Button>
 
           <Button
-            disabled={isLoginLoading}
+            onClick={() => loginWithProvider('google')}
+            disabled={isLoginLoading || isLoginWithProviderLoading}
             type='button'
             variant='outline'
             className='w-full'

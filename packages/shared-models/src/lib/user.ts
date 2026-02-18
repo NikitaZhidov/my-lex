@@ -22,7 +22,7 @@ export const CreateUserSchema = z
     passwordRepeat: z
       .string({ error: 'validation.string.invalid' })
       .min(VALIDATION_CONSTANTS.PASSWORD_MINIMUM, {
-        error: 'validation.passwordRepeat.tooShort',
+        error: 'validation.password.tooShort',
       }),
   })
   .refine(data => data.password === data.passwordRepeat, {

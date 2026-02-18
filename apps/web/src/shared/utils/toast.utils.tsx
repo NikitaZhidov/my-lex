@@ -22,3 +22,5 @@ export const toastApiErrorHandler =
       toast.error(t('exceptions.somethingWentWrong'));
     }
   };
+
+export const toastSuccess = (message: string) => toast.success(message);

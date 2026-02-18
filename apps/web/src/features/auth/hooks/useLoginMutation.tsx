@@ -1,12 +1,17 @@
 import { useMutation } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-import { LoginUser } from '@my-lex/shared-models';
+import { LoginUser, OAuthProvider } from '@my-lex/shared-models';
 
 import { authService } from '../services/auth.service';
 
-import { parseAndSetError, ParsedError } from '@/shared/utils';
+import {
+  parseAndSetError,
+  ParsedError,
+  toastApiErrorHandler,
+} from '@/shared/utils';
 
 export function useLoginMutation() {
   const t = useTranslations();
@@ -21,10 +26,27 @@ export function useLoginMutation() {
     onMutate: () => setParsedError(undefined),
     onError: parseAndSetError(t, setParsedError),
     onSuccess(res) {
-      // HOT TODO: redirect
+      // HOT TODO: add redirect
       console.log(res);
     },
   });
 
   return { login, isLoginLoading, parsedError };
+}
+
+export function useLoginWithProvider() {
+  const t = useTranslations();
+  const router = useRouter();
+
+  const { mutate: login, isPending: isLoading } = useMutation({
+    mutationKey: ['login-with-provider'],
+    mutationFn: (provider: OAuthProvider) =>
+      authService.getProviderAuthUrl(provider).then(res => res.authUrl),
+    onError: toastApiErrorHandler(t),
+    onSuccess(authUrl: string) {
+      router.push(authUrl);
+    },
+  });
+
+  return { login, isLoading };
 }

@@ -1,5 +1,7 @@
+import RegisterForm from '@/features/auth/components/RegisterForm';
+
 const RegisterPage = () => {
-  return <div>Register</div>;
+  return <RegisterForm className='min-w-sm' />;
 };
 
 export default RegisterPage;

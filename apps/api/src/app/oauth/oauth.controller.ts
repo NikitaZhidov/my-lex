@@ -1,4 +1,5 @@
 import { Controller, Get, Param, Query, Res, Session } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { type Request, type Response } from 'express';
 
 import { type OAuthProvider } from '@my-lex/shared-models';
@@ -12,6 +13,7 @@ export class OAuthController {
   constructor(
     private readonly oauthService: OAuthService,
     private readonly loginHandlerFactory: LoginHandlerFactory,
+    private readonly configService: ConfigService,
   ) {}
 
   @Get('connect/:provider')
@@ -22,16 +24,20 @@ export class OAuthController {
   }
 
   @Get('callback/:provider')
-  callbackHandler(
+  async callbackHandler(
     @Param('provider') provider: OAuthProvider,
     @Query('code') code: string,
     @Session() session: Request['session'],
     @Res() res: Response,
   ) {
-    return this.oauthService.loginUserByCode(
+    await this.oauthService.loginUserByCode(
       provider,
       code,
       this.loginHandlerFactory.create(session, res),
+    );
+
+    return res.redirect(
+      `${this.configService.getOrThrow<string>('WEB_APP_BASE_URL')}`,
     );
   }
 }
