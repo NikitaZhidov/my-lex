@@ -24,6 +24,7 @@ import {
 import { useLoginMutation } from '../hooks/useLoginMutation';
 
 import { APP_ROUTES } from '@/constants';
+import ErrorAlerts from '@/shared/ui/ErrorAlerts';
 import FormFieldError from '@/shared/ui/FormFieldError';
 
 export interface LoginFormProps {
@@ -33,7 +34,7 @@ export interface LoginFormProps {
 const LoginForm = ({ className }: LoginFormProps) => {
   const t = useTranslations();
 
-  const { login, isLoginLoading } = useLoginMutation();
+  const { login, isLoginLoading, parsedError } = useLoginMutation();
 
   const form = useForm({
     resolver: zodResolver(LoginUserSchema),
@@ -105,6 +106,8 @@ const LoginForm = ({ className }: LoginFormProps) => {
               );
             }}
           />
+
+          <ErrorAlerts parsedError={parsedError} />
         </CardContent>
 
         <CardFooter className='flex flex-col gap-2 mt-6'>
@@ -114,8 +117,8 @@ const LoginForm = ({ className }: LoginFormProps) => {
 
           <Button
             disabled={isLoginLoading}
+            type='button'
             variant='outline'
-            type='submit'
             className='w-full'
           >
             <FaGoogle />
