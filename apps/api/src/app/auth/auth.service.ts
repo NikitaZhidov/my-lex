@@ -49,7 +49,10 @@ export class AuthService {
       throw new NotFoundException('exceptions.noUserWithThatEmail');
     }
 
-    const isValidPassword = await verify(user.password, loginUser.password);
+    const isValidPassword =
+      loginUser.password && user.password
+        ? await verify(user.password, loginUser.password)
+        : loginUser.password === user.password;
 
     if (!isValidPassword) {
       throw new UnauthorizedException('exceptions.incorrectPassword');
