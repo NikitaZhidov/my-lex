@@ -1,9 +1,11 @@
 import { Metadata } from 'next';
+import { cookies } from 'next/headers';
 
 import '../styles/global.css';
 
 import { APP_NAME } from '@/constants/app-name';
 import MainProvider from '@/shared/providers/MainProvider';
+import { getAppLocaleFromCookies } from '@/shared/utils';
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -14,13 +16,15 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const locale = getAppLocaleFromCookies(await cookies());
+
   return (
-    <html suppressHydrationWarning lang='en'>
+    <html suppressHydrationWarning lang={locale}>
       <body>
         <MainProvider>{children}</MainProvider>
       </body>
