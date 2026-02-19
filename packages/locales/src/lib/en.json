@@ -4,6 +4,7 @@
     "login": "Login",
     "loginWithGoogle": "Login with Google",
     "loginDescription": "Enter your email below to login to your account",
+    "logout": "Log out",
     "registerDescription": "Create a new account to get started",
     "password": "Password",
     "repeatPassword": "Repeat password",

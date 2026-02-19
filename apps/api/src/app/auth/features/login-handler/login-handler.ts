@@ -18,6 +18,14 @@ class ExpressLoginHandler implements LoginHandler {
 
   async persist(userId: UserProfile['id']): Promise<void> {
     return new Promise((resolve, reject) => {
+      if (!userId) {
+        return reject(
+          new InternalServerErrorException(
+            'Cannot save the session as userId has not been provided.',
+          ),
+        );
+      }
+
       this.session.userId = userId;
 
       this.session.save(err => {

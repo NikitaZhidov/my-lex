@@ -15,6 +15,7 @@ import {
 
 export function useLoginMutation() {
   const t = useTranslations();
+  const router = useRouter();
 
   const [parsedError, setParsedError] = useState<ParsedError | undefined>(
     undefined,
@@ -26,8 +27,8 @@ export function useLoginMutation() {
     onMutate: () => setParsedError(undefined),
     onError: parseAndSetError(t, setParsedError),
     onSuccess(res) {
-      // HOT TODO: add redirect
-      console.log(res);
+      // HOT TODO: add HOME PAGE constant
+      router.push('/');
     },
   });
 

@@ -97,6 +97,7 @@ const RegisterForm = ({ className }: RegisterFormProps) => {
                     disabled={isRegisterLoading}
                     name='email'
                     type='email'
+                    autoComplete='home email'
                     placeholder='alex@exampe.com'
                   />
 
@@ -117,7 +118,8 @@ const RegisterForm = ({ className }: RegisterFormProps) => {
                   <Input
                     {...field}
                     disabled={isRegisterLoading}
-                    name='passwod'
+                    autoComplete='current-password'
+                    name='password'
                     type='password'
                     placeholder='******'
                   />

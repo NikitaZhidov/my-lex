@@ -5,6 +5,7 @@
     "loginWithGoogle": "Войти через Google",
     "loginDescription": "Введите ваш email ниже, чтобы войти в аккаунт",
     "registerDescription": "Создайте новый аккаунт, чтобы начать",
+    "logout": "Выйти",
     "password": "Пароль",
     "repeatPassword": "Повторите пароль",
     "email": "Email",

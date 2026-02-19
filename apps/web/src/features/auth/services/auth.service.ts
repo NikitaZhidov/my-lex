@@ -11,6 +11,10 @@ export class AuthService {
     return api.post('/auth/register', registerInfo);
   }
 
+  async logout() {
+    return api.post('/auth/logout');
+  }
+
   async getProviderAuthUrl(provider: OAuthProvider) {
     return api.get<{ authUrl: string }>(`/oauth/connect/${provider}`);
   }

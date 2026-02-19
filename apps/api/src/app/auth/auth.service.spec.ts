@@ -190,7 +190,7 @@ describe('Auth service', () => {
     );
 
     await authService.loginOrRegister(
-      { email: 'new-user@example.com', name: 'user', picture: '', id: '123' },
+      { email: 'new-user@example.com', name: 'user', picture: '' },
       mockLoginHandler,
     );
 
@@ -210,7 +210,7 @@ describe('Auth service', () => {
     );
 
     await authService.loginOrRegister(
-      { email: 'new-user@example.com', name: 'user', picture: '', id: '123' },
+      { email: 'new-user@example.com', name: 'user', picture: '' },
       mockLoginHandler,
     );
 

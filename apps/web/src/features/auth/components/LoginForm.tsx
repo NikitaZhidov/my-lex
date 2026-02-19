@@ -79,6 +79,7 @@ const LoginForm = ({ className }: LoginFormProps) => {
                   <Input
                     {...field}
                     disabled={isLoginLoading}
+                    autoComplete='home email'
                     name='email'
                     type='email'
                     placeholder='alex@exampe.com'
@@ -101,7 +102,8 @@ const LoginForm = ({ className }: LoginFormProps) => {
                   <Input
                     {...field}
                     disabled={isLoginLoading}
-                    name='passwod'
+                    autoComplete='current-password'
+                    name='password'
                     type='password'
                     placeholder='******'
                   />

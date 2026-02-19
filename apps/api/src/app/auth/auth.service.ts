@@ -60,13 +60,16 @@ export class AuthService {
     return true;
   }
 
-  async loginOrRegister(userToLogin: UserProfile, loginHandler: LoginHandler) {
+  async loginOrRegister(
+    userToLogin: Omit<UserProfile, 'id'>,
+    loginHandler: LoginHandler,
+  ) {
     const existingUser = await this.usersRepository.findByEmail(
       userToLogin.email,
     );
 
     if (existingUser) {
-      await loginHandler.persist(userToLogin.id);
+      await loginHandler.persist(existingUser.id);
 
       return true;
     }
