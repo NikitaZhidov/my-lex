@@ -11,6 +11,11 @@
     "email": "Email",
     "registrationWasSuccessful": "Registration was successful"
   },
+  "theme": {
+    "dark": "Dark",
+    "light": "Light",
+    "system": "System"
+  },
   "common": {
     "name": "Name"
   },

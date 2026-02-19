@@ -1,5 +1,5 @@
-import { SupportedLanguages } from './supported-languages';
+import { SupportedLanguage } from './supported-languages';
 
-export const importTranslations = async (lang: SupportedLanguages) => {
+export const importTranslations = async (lang: SupportedLanguage) => {
   return (await import(`./${lang}.json`)).default;
 };

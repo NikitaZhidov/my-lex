@@ -11,6 +11,11 @@
     "email": "Email",
     "registrationWasSuccessful": "Регистрация прошла успешно"
   },
+  "theme": {
+    "dark": "Тёмная",
+    "light": "Светлая",
+    "system": "Системная"
+  },
   "common": {
     "name": "Имя"
   },

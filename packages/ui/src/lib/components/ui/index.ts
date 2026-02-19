@@ -6,3 +6,4 @@ export * from './field';
 export * from './input';
 export * from './sonner';
 export * from './alert';
+export * from './dropdown-menu';

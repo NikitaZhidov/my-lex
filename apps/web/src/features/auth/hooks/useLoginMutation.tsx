@@ -7,6 +7,7 @@ import { LoginUser, OAuthProvider } from '@my-lex/shared-models';
 
 import { authService } from '../services/auth.service';
 
+import { HOME_ROUTE } from '@/constants';
 import {
   parseAndSetError,
   ParsedError,
@@ -26,10 +27,7 @@ export function useLoginMutation() {
     mutationFn: (loginInfo: LoginUser) => authService.login(loginInfo),
     onMutate: () => setParsedError(undefined),
     onError: parseAndSetError(t, setParsedError),
-    onSuccess(res) {
-      // HOT TODO: add HOME PAGE constant
-      router.push('/');
-    },
+    onSuccess: () => router.push(HOME_ROUTE),
   });
 
   return { login, isLoginLoading, parsedError };

@@ -1,10 +1,5 @@
 import { FetchClient } from './fetch-client';
 
-// HOT TODO: add theme handler
-
-// HOT TODO: handle the root "/"" route
-// HOT TODO: add langauge switcher
-
 // HOT TODO: fix the error in the console
 
 export const api = new FetchClient({

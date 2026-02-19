@@ -9,3 +9,5 @@ export const AUTH_ROUTES: AppRouteValues[] = [
   APP_ROUTES.LOGIN,
   APP_ROUTES.REGISTER,
 ];
+
+export const HOME_ROUTE = '/';
