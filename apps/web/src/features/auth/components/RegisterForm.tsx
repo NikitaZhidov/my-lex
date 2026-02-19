@@ -16,6 +16,7 @@ import {
   CardHeader,
   CardTitle,
   Field,
+  FieldGroup,
   FieldLabel,
   Input,
 } from '@my-lex/ui';
@@ -63,104 +64,122 @@ const RegisterForm = ({ className }: RegisterFormProps) => {
         </CardAction>
       </CardHeader>
 
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        <CardContent className='space-y-6'>
-          <Controller
-            control={form.control}
-            name='name'
-            render={({ field, fieldState }) => {
-              return (
-                <Field>
-                  <FieldLabel>{t('common.name')}</FieldLabel>
-                  <Input
-                    {...field}
-                    disabled={isRegisterLoading}
-                    name='name'
-                    placeholder='Alex'
-                  />
+      <CardContent className='space-y-4'>
+        <form id='register-form' onSubmit={form.handleSubmit(onSubmit)}>
+          <FieldGroup>
+            <Controller
+              control={form.control}
+              name='name'
+              render={({ field, fieldState }) => {
+                return (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor='name'>{t('common.name')}</FieldLabel>
 
-                  <FormFieldError fieldState={fieldState} />
-                </Field>
-              );
-            }}
-          />
+                    <Input
+                      {...field}
+                      id='name'
+                      data-invalid={fieldState.invalid}
+                      disabled={isRegisterLoading}
+                      placeholder='Alex'
+                    />
 
-          <Controller
-            control={form.control}
-            name='email'
-            render={({ field, fieldState }) => {
-              return (
-                <Field>
-                  <FieldLabel>{t('auth.email')}</FieldLabel>
-                  <Input
-                    {...field}
-                    disabled={isRegisterLoading}
-                    name='email'
-                    type='email'
-                    autoComplete='home email'
-                    placeholder='alex@exampe.com'
-                  />
+                    <FormFieldError fieldState={fieldState} />
+                  </Field>
+                );
+              }}
+            />
 
-                  <FormFieldError fieldState={fieldState} />
-                </Field>
-              );
-            }}
-          />
+            <Controller
+              control={form.control}
+              name='email'
+              render={({ field, fieldState }) => {
+                return (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor='email'>{t('auth.email')}</FieldLabel>
 
-          <Controller
-            control={form.control}
-            name='password'
-            render={({ field, fieldState }) => {
-              return (
-                <Field>
-                  <FieldLabel>{t('auth.password')}</FieldLabel>
+                    <Input
+                      {...field}
+                      id='email'
+                      data-invalid={fieldState.invalid}
+                      disabled={isRegisterLoading}
+                      type='email'
+                      autoComplete='home email'
+                      placeholder='alex@exampe.com'
+                    />
 
-                  <Input
-                    {...field}
-                    disabled={isRegisterLoading}
-                    autoComplete='current-password'
-                    name='password'
-                    type='password'
-                    placeholder='******'
-                  />
+                    <FormFieldError fieldState={fieldState} />
+                  </Field>
+                );
+              }}
+            />
 
-                  <FormFieldError fieldState={fieldState} />
-                </Field>
-              );
-            }}
-          />
+            <Controller
+              control={form.control}
+              name='password'
+              render={({ field, fieldState }) => {
+                return (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor='password'>
+                      {t('auth.password')}
+                    </FieldLabel>
 
-          <Controller
-            control={form.control}
-            name='passwordRepeat'
-            render={({ field, fieldState }) => {
-              return (
-                <Field>
-                  <FieldLabel>{t('auth.repeatPassword')}</FieldLabel>
+                    <Input
+                      {...field}
+                      id='password'
+                      data-invalid={fieldState.invalid}
+                      disabled={isRegisterLoading}
+                      autoComplete='off'
+                      type='password'
+                      placeholder='******'
+                    />
 
-                  <Input
-                    {...field}
-                    disabled={isRegisterLoading}
-                    name='passwodRepeat'
-                    type='password'
-                    placeholder='******'
-                  />
+                    <FormFieldError fieldState={fieldState} />
+                  </Field>
+                );
+              }}
+            />
 
-                  <FormFieldError fieldState={fieldState} />
-                </Field>
-              );
-            }}
-          />
+            <Controller
+              control={form.control}
+              name='passwordRepeat'
+              render={({ field, fieldState }) => {
+                return (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor='repeat-password'>
+                      {t('auth.repeatPassword')}
+                    </FieldLabel>
 
-          <ErrorAlerts parsedError={parsedError} />
-        </CardContent>
+                    <Input
+                      {...field}
+                      id='repeat-password'
+                      data-invalid={fieldState.invalid}
+                      disabled={isRegisterLoading}
+                      autoComplete='off'
+                      type='password'
+                      placeholder='******'
+                    />
 
-        <CardFooter className='flex flex-col gap-2 mt-6'>
-          <Button disabled={isRegisterLoading} type='submit' className='w-full'>
-            {t('auth.signUp')}
-          </Button>
-        </CardFooter>
-      </form>
+                    <FormFieldError fieldState={fieldState} />
+                  </Field>
+                );
+              }}
+            />
+          </FieldGroup>
+        </form>
+
+        <ErrorAlerts parsedError={parsedError} />
+      </CardContent>
+
+      <CardFooter className='flex flex-col gap-2'>
+        <Button
+          disabled={isRegisterLoading}
+          form='register-form'
+          type='submit'
+          className='w-full'
+        >
+          {t('auth.signUp')}
+        </Button>
+      </CardFooter>
     </Card>
   );
 };

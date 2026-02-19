@@ -27,7 +27,8 @@
     "password": {
       "tooShort": "Пароль должен содержать минимум {length} символов",
       "notMatch": "Пароли не совпадают"
-    }
+    },
+    "required": "Это поле обязательно"
   },
   "exceptions": {
     "userWithThatEmailAlreadyExists": "Пользователь с таким email уже существует",

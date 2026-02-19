@@ -17,6 +17,7 @@ import {
   CardHeader,
   CardTitle,
   Field,
+  FieldGroup,
   FieldLabel,
   Input,
 } from '@my-lex/ui';
@@ -67,73 +68,87 @@ const LoginForm = ({ className }: LoginFormProps) => {
         </CardAction>
       </CardHeader>
 
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        <CardContent className='space-y-6'>
-          <Controller
-            control={form.control}
-            name='email'
-            render={({ field, fieldState }) => {
-              return (
-                <Field>
-                  <FieldLabel>{t('auth.email')}</FieldLabel>
-                  <Input
-                    {...field}
-                    disabled={isLoginLoading}
-                    autoComplete='home email'
-                    name='email'
-                    type='email'
-                    placeholder='alex@exampe.com'
-                  />
+      <CardContent className='space-y-4'>
+        <form id='login-form' onSubmit={form.handleSubmit(onSubmit)}>
+          <FieldGroup>
+            <Controller
+              control={form.control}
+              name='email'
+              render={({ field, fieldState }) => {
+                return (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor='login-email'>
+                      {t('auth.email')}
+                    </FieldLabel>
 
-                  <FormFieldError fieldState={fieldState} />
-                </Field>
-              );
-            }}
-          />
+                    <Input
+                      {...field}
+                      id='login-email'
+                      data-invalid={fieldState.invalid}
+                      disabled={isLoginLoading}
+                      autoComplete='home email'
+                      type='email'
+                      placeholder='alex@exampe.com'
+                    />
 
-          <Controller
-            control={form.control}
-            name='password'
-            render={({ field, fieldState }) => {
-              return (
-                <Field>
-                  <FieldLabel>{t('auth.password')}</FieldLabel>
+                    <FormFieldError fieldState={fieldState} />
+                  </Field>
+                );
+              }}
+            />
 
-                  <Input
-                    {...field}
-                    disabled={isLoginLoading}
-                    autoComplete='current-password'
-                    name='password'
-                    type='password'
-                    placeholder='******'
-                  />
+            <Controller
+              control={form.control}
+              name='password'
+              render={({ field, fieldState }) => {
+                return (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor='login-password'>
+                      {t('auth.password')}
+                    </FieldLabel>
 
-                  <FormFieldError fieldState={fieldState} />
-                </Field>
-              );
-            }}
-          />
+                    <Input
+                      {...field}
+                      id='login-password'
+                      data-invalid={fieldState.invalid}
+                      disabled={isLoginLoading}
+                      autoComplete='current-password'
+                      type='password'
+                      placeholder='******'
+                    />
 
-          <ErrorAlerts parsedError={parsedError} />
-        </CardContent>
+                    <FormFieldError fieldState={fieldState} />
+                  </Field>
+                );
+              }}
+            />
+          </FieldGroup>
+        </form>
 
-        <CardFooter className='flex flex-col gap-2 mt-6'>
-          <Button disabled={isLoginLoading} type='submit' className='w-full'>
-            {t('auth.login')}
-          </Button>
+        <ErrorAlerts parsedError={parsedError} />
+      </CardContent>
 
-          <Button
-            onClick={() => loginWithProvider('google')}
-            disabled={isLoginLoading || isLoginWithProviderLoading}
-            type='button'
-            variant='outline'
-            className='w-full'
-          >
-            <FaGoogle />
-            {t('auth.loginWithGoogle')}
-          </Button>
-        </CardFooter>
-      </form>
+      <CardFooter className='flex flex-col gap-2'>
+        <Button
+          disabled={isLoginLoading}
+          type='submit'
+          form='login-form'
+          className='w-full'
+        >
+          {t('auth.login')}
+        </Button>
+
+        <Button
+          onClick={() => loginWithProvider('google')}
+          disabled={isLoginLoading || isLoginWithProviderLoading}
+          type='button'
+          variant='outline'
+          className='w-full'
+        >
+          <FaGoogle />
+          {t('auth.loginWithGoogle')}
+        </Button>
+      </CardFooter>
     </Card>
   );
 };

@@ -27,7 +27,8 @@
     "password": {
       "tooShort": "Password must be at least {length} characters",
       "notMatch": "The passwords do not match"
-    }
+    },
+    "required": "This field is required"
   },
   "exceptions": {
     "userWithThatEmailAlreadyExists": "User with that email already exists",
