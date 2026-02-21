@@ -30,6 +30,9 @@
     },
     "required": "This field is required"
   },
+  "terms": {
+    "noTermWasProvided": "No term was provided"
+  },
   "exceptions": {
     "userWithThatEmailAlreadyExists": "User with that email already exists",
     "noUserWithThatEmail": "User with that email doesn't exist",

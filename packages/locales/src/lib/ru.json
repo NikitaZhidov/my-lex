@@ -30,6 +30,9 @@
     },
     "required": "Это поле обязательно"
   },
+  "terms": {
+    "NoTermWasProvided": "Никакого слова не предоставлено"
+  },
   "exceptions": {
     "userWithThatEmailAlreadyExists": "Пользователь с таким email уже существует",
     "noUserWithThatEmail": "Пользователь с таким email не найден",

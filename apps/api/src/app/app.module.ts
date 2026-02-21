@@ -9,6 +9,7 @@ import { IS_DEV_ENV } from '../libs/common/utils/is-dev.utils';
 import { AuthModule } from './auth/auth.module';
 import { OAuthModule } from './oauth/oauth.module';
 import { PrismaModule } from './prisma/prisma.module';
+import { TermsModule } from './term/terms.module';
 import { UsersModule } from './users/users.module';
 import { CustomZodValidationPipe } from './validation/zod-validation.pipe';
 
@@ -36,6 +37,7 @@ import { CustomZodValidationPipe } from './validation/zod-validation.pipe';
     PrismaModule,
     UsersModule,
     AuthModule,
+    TermsModule,
   ],
 })
 export class AppModule {}
