@@ -2,6 +2,8 @@ import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adap
 
 import { SupportedLanguage } from '@my-lex/locales';
 
+import { STORAGE_KEYS } from '@/constants';
+
 export const SUPPORTED_LOCALES: SupportedLanguage[] = ['en', 'ru'];
 
 export const isSupportedLocale = (val?: string): val is SupportedLanguage => {
@@ -30,7 +32,7 @@ export const getLocaleLabel = (locale: string) => {
 };
 
 export const getAppLocaleFromCookies = (cookies: ReadonlyRequestCookies) => {
-  const localeValue = cookies.get('locale')?.value;
+  const localeValue = cookies.get(STORAGE_KEYS.LOCALE)?.value;
   const locale: SupportedLanguage = isSupportedLocale(localeValue)
     ? localeValue
     : 'en';

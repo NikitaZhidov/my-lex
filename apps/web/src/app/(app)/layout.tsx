@@ -1,36 +1,41 @@
-'use client';
-
-// HOT TODO: remove use client later
-import { useTranslations } from 'next-intl';
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { PropsWithChildren } from 'react';
 
-import { Button } from '@my-lex/ui';
+import { STORAGE_KEYS } from '@/constants';
+import { AppHeader, AppSidebar } from '@/shared/components';
+import { prefetchAppData } from '@/shared/utils';
+import { getCookieValue } from '@/shared/utils/cookies-utils';
 
-import { useLogoutMutation } from '@/features/auth/hooks';
-import { LocaleSwitcher, ThemeToggle } from '@/shared/components';
+const getSidebarInitialCollapsedState = async () => {
+  const cookieValue = await getCookieValue(STORAGE_KEYS.APP_SIDEBAR_COLLAPSED);
+
+  if (cookieValue) {
+    return cookieValue === 'true';
+  }
+
+  return false;
+};
 
 // HOT TODO: change the favicon
 
-export default function AppLayout({ children }: PropsWithChildren) {
-  const t = useTranslations();
-  const { logout, isLoading } = useLogoutMutation();
+export default async function AppLayout({ children }: PropsWithChildren) {
+  const queryClient = await prefetchAppData();
+  const sidebarInitialState = await getSidebarInitialCollapsedState();
 
   return (
-    <div className='min-h-screen w-full'>
-      <div className='bg-accent/40 py-2 px-4 flex items-center justify-end'>
-        <div className='flex items-center gap-8'>
-          <div className='flex items-center gap-2'>
-            <LocaleSwitcher />
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <div className='min-h-screen w-full flex'>
+        <AppSidebar
+          className='max-h-screen h-screen sticky top-0'
+          initialCollapsedState={sidebarInitialState}
+        />
 
-            <ThemeToggle />
-          </div>
+        <div className='flex flex-col flex-auto'>
+          <AppHeader className='sticky top-0 bg-background shadow-xs z-0' />
 
-          <Button onClick={() => logout()} disabled={isLoading}>
-            {t('auth.logout')}
-          </Button>
+          <div className='flex-auto flex'>{children}</div>
         </div>
       </div>
-      {children}
-    </div>
+    </HydrationBoundary>
   );
 }

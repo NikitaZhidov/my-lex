@@ -1,1 +1,1 @@
-export const APP_NAME = 'MyLex';
+export const APP_NAME = 'My Lex';

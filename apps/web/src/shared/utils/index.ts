@@ -4,3 +4,6 @@ export * from './resolve-translation-params';
 export * from './toast.utils';
 export * from './locale.utils';
 export * from './class-name.utils';
+export * from './is-server';
+export * from './app-init';
+export * from './web-api.utils';

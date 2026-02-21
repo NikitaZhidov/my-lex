@@ -7,3 +7,5 @@ export * from './input';
 export * from './sonner';
 export * from './alert';
 export * from './dropdown-menu';
+export * from './avatar';
+export * from './skeleton';

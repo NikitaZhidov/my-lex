@@ -2,7 +2,7 @@ import { ApiError } from './api-error';
 
 export interface FetchClientOptions {
   baseUrl: string;
-  options?: RequestInit;
+  optionsGetter?: () => Promise<RequestInit>;
 }
 
 export type FetchSearchParams = Record<
@@ -102,14 +102,24 @@ export class FetchClient {
       url += `?${this.searchParamsToString(options.params)}`;
     }
 
+    const baseOptions = await this.options.optionsGetter?.();
+
     const config: RequestInit = {
-      ...this.options.options,
+      ...baseOptions,
       ...(options ?? {}),
       headers: {
-        ...(this.options.options?.headers ?? {}),
+        ...(baseOptions?.headers ?? {}),
         ...(options?.headers ?? {}),
       },
     };
+
+    if (typeof window === 'undefined') {
+      const { cookies } = await import('next/headers');
+      const cookieHeader = (await cookies()).toString();
+      if (cookieHeader) {
+        (config.headers as Record<string, string>)['Cookie'] = cookieHeader;
+      }
+    }
 
     const res = await fetch(url, config);
 

@@ -13,7 +13,9 @@ import {
   DropdownMenuTrigger,
 } from '@my-lex/ui';
 
-import { getLocaleLabel, SUPPORTED_LOCALES } from '../utils';
+import { getLocaleLabel, setCookie, SUPPORTED_LOCALES } from '../utils';
+
+import { STORAGE_KEYS } from '@/constants';
 
 export const LocaleSwitcher = () => {
   const locale = useLocale();
@@ -24,7 +26,7 @@ export const LocaleSwitcher = () => {
       return;
     }
 
-    document.cookie = `locale=${newLocale}`;
+    setCookie(STORAGE_KEYS.LOCALE, newLocale);
 
     router.refresh();
   };
