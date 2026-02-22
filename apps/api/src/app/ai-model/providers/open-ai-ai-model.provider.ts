@@ -6,7 +6,7 @@ import { type ResponsesModel } from 'openai/resources/shared.js';
 import { AIModelProvider } from '../types/ai-model-provider';
 
 export class OpenAIAIModelProvider implements AIModelProvider {
-  private readonly MODEL: ResponsesModel = 'gpt-4o-mini';
+  private readonly MODEL: ResponsesModel = 'gpt-4';
 
   private readonly ai = new OpenAI({
     apiKey: this.apiKey,
