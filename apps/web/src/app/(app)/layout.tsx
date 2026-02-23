@@ -16,8 +16,6 @@ const getSidebarInitialCollapsedState = async () => {
   return false;
 };
 
-// HOT TODO: change the favicon
-
 export default async function AppLayout({ children }: PropsWithChildren) {
   const queryClient = await prefetchAppData();
   const sidebarInitialState = await getSidebarInitialCollapsedState();

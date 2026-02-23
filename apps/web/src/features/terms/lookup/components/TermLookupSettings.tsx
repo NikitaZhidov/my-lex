@@ -6,6 +6,7 @@ import {
   MessageCircleQuestion,
   PenLine,
 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 import {
   Field,
@@ -22,9 +23,8 @@ import {
 
 import { useTermLookupSettings, useTermLookupUpdateSettings } from '../store';
 
-// HOT TODO: cover it with translations!
-
 export const TermLookupSettings = () => {
+  const t = useTranslations('terms.lookup');
   const settings = useTermLookupSettings();
   const updateSettings = useTermLookupUpdateSettings();
 
@@ -34,7 +34,7 @@ export const TermLookupSettings = () => {
         <Field>
           <FieldLabel htmlFor='learning-language'>
             <GlobeIcon className='size-4' />
-            Learning language
+            {t('learningLanguage')}
           </FieldLabel>
 
           <InputGroup>
@@ -42,7 +42,7 @@ export const TermLookupSettings = () => {
               value={settings.learningLanguage}
               onChange={e => updateSettings('learningLanguage', e.target.value)}
               id='learning-language'
-              placeholder='Language you are learning...'
+              placeholder={t('learningLanguagePlaceholder')}
             />
 
             <InputGroupAddon align='inline-end'>
@@ -51,9 +51,7 @@ export const TermLookupSettings = () => {
                   <InfoIcon />
                 </TooltipTrigger>
 
-                <TooltipContent>
-                  This will help the AI to provide better definition
-                </TooltipContent>
+                <TooltipContent>{t('learningLanguageTooltip')}</TooltipContent>
               </Tooltip>
             </InputGroupAddon>
           </InputGroup>
@@ -67,7 +65,7 @@ export const TermLookupSettings = () => {
           />
           <FieldLabel htmlFor='include-explanation'>
             <MessageCircleQuestion className='size-5' />
-            Include explanation
+            {t('includeExplanation')}
           </FieldLabel>
         </Field>
 
@@ -79,7 +77,7 @@ export const TermLookupSettings = () => {
           />
           <FieldLabel htmlFor='include-translations'>
             <LanguagesIcon className='size-5' />
-            Include translation
+            {t('includeTranslation')}
           </FieldLabel>
         </Field>
 
@@ -91,7 +89,7 @@ export const TermLookupSettings = () => {
           />
           <FieldLabel htmlFor='include-synonyms'>
             <BookType className='size-5' />
-            Include synonyms
+            {t('includeSynonyms')}
           </FieldLabel>
         </Field>
 
@@ -103,7 +101,7 @@ export const TermLookupSettings = () => {
           />
           <FieldLabel htmlFor='include-examples'>
             <PenLine className='size-5' />
-            Include examples
+            {t('includeExamples')}
           </FieldLabel>
         </Field>
       </FieldGroup>

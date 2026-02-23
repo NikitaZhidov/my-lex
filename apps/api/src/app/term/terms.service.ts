@@ -9,6 +9,7 @@ import { LLMService } from '../llm/llm.service';
 import {
   EnDefinitionBuilder,
   RuDefinitionBuilder,
+  RuLongTextExplanationBuilder,
 } from './definition-builders';
 import { TermDefinitionBuilder } from './types/term-definition-builder';
 
@@ -16,6 +17,17 @@ const promptForLocale: Record<SupportedLanguage, TermDefinitionBuilder> = {
   en: EnDefinitionBuilder,
   ru: RuDefinitionBuilder,
 };
+
+function isShortExpression(text: string): boolean {
+  const trimmed = text.trim();
+
+  if (trimmed.length > 120) return false;
+
+  const wordCount = trimmed.split(/\s+/).length;
+  if (wordCount > 6) return false;
+
+  return true;
+}
 
 const DEFINITION_PROMPT = (
   term: string,
@@ -26,6 +38,12 @@ const DEFINITION_PROMPT = (
     term,
     settings,
   );
+
+  if (isShortExpression(term)) {
+    return prompt;
+  } else {
+    return RuLongTextExplanationBuilder(term, settings);
+  }
 
   return prompt;
 };
@@ -39,7 +57,7 @@ export class TermsService {
     locale: SupportedLanguage,
     settings?: TermDefinitionSettings,
   ): Observable<string> {
-    // HOT TODO: wrap the term with a prompt here
+    // HOT TODO: create a more clear solution (a separate provider for prompts)
 
     return new Observable(obs => {
       const controller = new AbortController();

@@ -31,7 +31,20 @@
     "required": "Это поле обязательно"
   },
   "terms": {
-    "NoTermWasProvided": "Никакого слова не предоставлено"
+    "NoTermWasProvided": "Никакого слова не предоставлено",
+    "lookup": {
+      "placeholder": "Введите слово, которое хотите выучить...",
+      "learningLanguage": "Язык изучения",
+      "learningLanguagePlaceholder": "Язык, который вы изучаете...",
+      "learningLanguageTooltip": "Это поможет ИИ давать более точное определение",
+      "includeExplanation": "Включить объяснение",
+      "includeTranslation": "Включить перевод",
+      "includeSynonyms": "Включить синонимы",
+      "includeExamples": "Включить примеры"
+    }
+  },
+  "home": {
+    "greeting": "Привет, {name}!"
   },
   "exceptions": {
     "userWithThatEmailAlreadyExists": "Пользователь с таким email уже существует",

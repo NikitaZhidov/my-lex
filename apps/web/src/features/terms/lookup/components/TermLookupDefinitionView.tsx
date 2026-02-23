@@ -23,6 +23,7 @@ export const TermLookupDefinitionView = () => {
   const streaming = useTermLookupIsStreaming();
 
   // HOT TODO: implement saving (useMutation)
+  // HOT TODO: add edit button (try to use the lexical lib)
 
   return (
     <div>

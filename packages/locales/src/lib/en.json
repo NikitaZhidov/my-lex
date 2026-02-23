@@ -31,7 +31,20 @@
     "required": "This field is required"
   },
   "terms": {
-    "noTermWasProvided": "No term was provided"
+    "noTermWasProvided": "No term was provided",
+    "lookup": {
+      "placeholder": "Enter the word you want to learn...",
+      "learningLanguage": "Learning language",
+      "learningLanguagePlaceholder": "Language you are learning...",
+      "learningLanguageTooltip": "This will help the AI to provide better definition",
+      "includeExplanation": "Include explanation",
+      "includeTranslation": "Include translation",
+      "includeSynonyms": "Include synonyms",
+      "includeExamples": "Include examples"
+    }
+  },
+  "home": {
+    "greeting": "Hello, {name}!"
   },
   "exceptions": {
     "userWithThatEmailAlreadyExists": "User with that email already exists",

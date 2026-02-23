@@ -33,7 +33,6 @@ interface TermLookupStore
     TermLookupStoreMethods {}
 
 const initialState: TermLookupStoreState = {
-  // HOT TODO: save the settings in the local storage
   settings: {
     includeExamples: true,
     includeExplanation: true,
@@ -42,8 +41,6 @@ const initialState: TermLookupStoreState = {
     learningLanguage: '',
   },
 
-  // HOT TODO: add a marker for the settings button
-  // HOT TODO: save it in the local storage
   settingsChecked: false,
 
   streaming: false,

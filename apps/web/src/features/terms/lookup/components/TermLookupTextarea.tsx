@@ -1,4 +1,5 @@
 import { PlayIcon, Settings2Icon, StopCircleIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
 import {
@@ -21,7 +22,10 @@ import {
 import { TermLookupSettings } from './TermLookupSettings';
 import { TermLookupSettingsCheckedMarker } from './TermLookupSettingsCheckedMarker';
 
+const MAX_LENGTH = 300;
+
 export const TermLookupTextarea = () => {
+  const t = useTranslations('terms.lookup');
   const [textareaValue, setTextAreaValue] = useState('');
 
   const setTerm = useTermLookupSetTerm();
@@ -35,23 +39,23 @@ export const TermLookupTextarea = () => {
     setTextAreaValue('');
   };
 
-  // HOT TODO: cover with translations!
-  // HOT TODO: add input limit
+  // HOT TODO: limit
 
   return (
     <div>
       <InputGroup>
-        {/* HOT TODO: add translation */}
         <InputGroupTextarea
+          maxLength={MAX_LENGTH}
           value={textareaValue}
           onChange={e => setTextAreaValue(e.target.value)}
-          placeholder='Enter the word you want to learn...'
+          placeholder={t('placeholder')}
         ></InputGroupTextarea>
 
-        {/* HOT TODO: add maximum input limit */}
         <InputGroupAddon align='block-end'>
           <div className='flex justify-between w-full'>
-            <div className='flex items-end'>{textareaValue.length}/50</div>
+            <div className='flex items-end'>
+              {textareaValue.length}/{MAX_LENGTH}
+            </div>
             <div className='flex gap-1 items-center'>
               <Popover>
                 <PopoverTrigger asChild>
