@@ -1,5 +1,6 @@
 import {
   BookType,
+  EyeOff,
   GlobeIcon,
   InfoIcon,
   LanguagesIcon,
@@ -104,6 +105,20 @@ export const TermLookupSettings = () => {
             {t('includeExamples')}
           </FieldLabel>
         </Field>
+
+        {settings.includeExamples && (
+          <Field orientation='horizontal'>
+            <Switch
+              id='hide-term-in-examples'
+              checked={settings.hideTermInExamples}
+              onCheckedChange={e => updateSettings('hideTermInExamples', e)}
+            />
+            <FieldLabel htmlFor='hide-term-in-examples'>
+              <EyeOff className='size-5' />
+              {t('hideTermInExamples')}
+            </FieldLabel>
+          </Field>
+        )}
       </FieldGroup>
     </div>
   );

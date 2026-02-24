@@ -16,6 +16,7 @@ import {
   useMarkSettingsAsChecked,
   useTermLookupIsStreaming,
   useTermLookupSetTerm,
+  useTermLookupSettings,
   useTermLookupStopStreaming,
 } from '../store';
 
@@ -31,6 +32,7 @@ export const TermLookupTextarea = () => {
   const setTerm = useTermLookupSetTerm();
   const streaming = useTermLookupIsStreaming();
   const markSettingsAsChecked = useMarkSettingsAsChecked();
+  const settings = useTermLookupSettings();
 
   const stopStreaming = useTermLookupStopStreaming();
 
@@ -39,7 +41,7 @@ export const TermLookupTextarea = () => {
     setTextAreaValue('');
   };
 
-  // HOT TODO: limit
+  // HOT TODO: add enter handling
 
   return (
     <div>
@@ -56,7 +58,14 @@ export const TermLookupTextarea = () => {
             <div className='flex items-end'>
               {textareaValue.length}/{MAX_LENGTH}
             </div>
+
             <div className='flex gap-1 items-center'>
+              {settings.learningLanguage && (
+                <div className='h-full flex items-center mt-1.5 mr-1 text-xs font-light'>
+                  {settings.learningLanguage}
+                </div>
+              )}
+
               <Popover>
                 <PopoverTrigger asChild>
                   <Button

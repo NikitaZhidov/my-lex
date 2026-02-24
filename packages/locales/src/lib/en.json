@@ -40,8 +40,10 @@
       "includeExplanation": "Include explanation",
       "includeTranslation": "Include translation",
       "includeSynonyms": "Include synonyms",
-      "includeExamples": "Include examples"
-    }
+      "includeExamples": "Include examples",
+      "hideTermInExamples": "Hide term in examples"
+    },
+    "termTooLong": "The term is too long"
   },
   "home": {
     "greeting": "Hello, {name}!"

@@ -38,6 +38,7 @@ const initialState: TermLookupStoreState = {
     includeExplanation: true,
     includeSynonyms: true,
     includeTranslation: true,
+    hideTermInExamples: true,
     learningLanguage: '',
   },
 
@@ -48,6 +49,8 @@ const initialState: TermLookupStoreState = {
   term: '',
   definition: '',
 };
+
+const clearTerm = (term: string) => term?.trim();
 
 const useTermLookupStore = create(
   persist<TermLookupStore>(
@@ -76,7 +79,7 @@ const useTermLookupStore = create(
         },
 
         setTerm: (term: string) => {
-          // HOT TODO: process term (remove unnecessary spaces)
+          term = clearTerm(term);
 
           set({ term, definition: '' });
 

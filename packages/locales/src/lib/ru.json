@@ -40,8 +40,10 @@
       "includeExplanation": "Включить объяснение",
       "includeTranslation": "Включить перевод",
       "includeSynonyms": "Включить синонимы",
-      "includeExamples": "Включить примеры"
-    }
+      "includeExamples": "Включить примеры",
+      "hideTermInExamples": "Скрывать слово в примерах"
+    },
+    "termTooLong": "Очень длинное слово"
   },
   "home": {
     "greeting": "Привет, {name}!"
