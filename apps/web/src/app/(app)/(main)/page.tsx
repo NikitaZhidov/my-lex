@@ -1,19 +1,19 @@
-'use client';
-
-import { useProfile } from '@/features/users/hooks';
-
-// HOT TODO: remove use client later
+import { TermLookup } from '@/features/terms/lookup/components';
+import AppGreeting from '@/shared/components/AppGreeting';
 
 export default function MainPage() {
-  const { profile } = useProfile();
-
   return (
     <div className='flex flex-auto'>
-      <div className='max-w-4xl mx-auto px-4 pt-4'>
-        <div>
-          {/* HOT TODO: add translation */}
-          <div className='text-5xl mt-70'>
-            Hello, {profile?.name?.split(' ')[0]}!
+      <div className='max-w-4xl md:w-4xl mx-auto px-4 pt-4'>
+        <div className='space-y-8'>
+          <div className='flex w-full'>
+            <TermLookup
+              className='transition-[margin] pb-4'
+              hasTermClassname='mt-[2vh]'
+              noTermClassname='mt-[25vh]'
+            >
+              <AppGreeting className='mb-8' />
+            </TermLookup>
           </div>
         </div>
       </div>

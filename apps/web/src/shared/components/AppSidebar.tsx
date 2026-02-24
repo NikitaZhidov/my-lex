@@ -68,13 +68,15 @@ const CollapsedSidebar = ({ toggleCollapsed }: SidebarProps) => {
         'group w-full flex items-center justify-center',
       )}
     >
-      <Image
-        className='group-hover:hidden'
-        alt={APP_NAME}
-        width={APP_LOGO_SIZE}
-        height={APP_LOGO_SIZE}
-        src={appLogo}
-      />
+      <button onClick={toggleCollapsed}>
+        <Image
+          className='group-hover:hidden'
+          alt={APP_NAME}
+          width={APP_LOGO_SIZE}
+          height={APP_LOGO_SIZE}
+          src={appLogo}
+        />
+      </button>
 
       <Button
         onClick={toggleCollapsed}

@@ -1,2 +1,2 @@
 export * from './lib/import-translations';
-export * from './lib/supported-languages';
+export * from './lib/supported-language';

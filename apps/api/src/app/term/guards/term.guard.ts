@@ -17,6 +17,10 @@ export class TermGuard implements CanActivate {
       throw new BadRequestException('terms.noTermWasProvided');
     }
 
+    if (term.length > 300) {
+      throw new BadRequestException('terms.termTooLong');
+    }
+
     return true;
   }
 }
