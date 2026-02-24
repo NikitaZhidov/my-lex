@@ -17,7 +17,8 @@
     "system": "System"
   },
   "common": {
-    "name": "Name"
+    "name": "Name",
+    "clear": "Clear"
   },
   "validation": {
     "failed": "Validation failed",

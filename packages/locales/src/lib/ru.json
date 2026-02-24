@@ -17,7 +17,8 @@
     "system": "Системная"
   },
   "common": {
-    "name": "Имя"
+    "name": "Имя",
+    "clear": "Очистить"
   },
   "validation": {
     "failed": "Ошибка валидации",

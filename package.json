@@ -28,6 +28,7 @@
     "cookie-parser": "^1.4.7",
     "express-session": "^1.19.0",
     "lucide-react": "^0.564.0",
+    "motion": "^12.34.3",
     "nestjs-zod": "^5.1.1",
     "next": "~16.0.1",
     "next-intl": "^4.8.2",

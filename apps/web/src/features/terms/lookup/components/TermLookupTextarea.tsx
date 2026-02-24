@@ -1,6 +1,6 @@
 import { PlayIcon, Settings2Icon, StopCircleIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { KeyboardEvent, useState } from 'react';
 
 import {
   Button,
@@ -36,12 +36,25 @@ export const TermLookupTextarea = () => {
 
   const stopStreaming = useTermLookupStopStreaming();
 
-  const sendTerm = () => {
-    setTerm(textareaValue);
-    setTextAreaValue('');
+  const enterHandler = (e: KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+
+      if (textareaValue && !streaming) {
+        sendTerm();
+      }
+    }
   };
 
-  // HOT TODO: add enter handling
+  const sendTerm = () => {
+    const clearTextArea = textareaValue.trim();
+
+    if (clearTextArea) {
+      setTerm(clearTextArea);
+    }
+
+    setTextAreaValue('');
+  };
 
   return (
     <div>
@@ -51,6 +64,7 @@ export const TermLookupTextarea = () => {
           value={textareaValue}
           onChange={e => setTextAreaValue(e.target.value)}
           placeholder={t('placeholder')}
+          onKeyDown={enterHandler}
         ></InputGroupTextarea>
 
         <InputGroupAddon align='block-end'>

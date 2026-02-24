@@ -1,29 +1,19 @@
-'use client';
-
-import { useTranslations } from 'next-intl';
-
 import { TermLookup } from '@/features/terms/lookup/components';
-import { useProfile } from '@/features/users/hooks';
-
-// HOT TODO: remove use client later
-
-// HOT TODO: hide the settings button for long texts
-// HOT TODO: separate handler for long texts
+import AppGreeting from '@/shared/components/AppGreeting';
 
 export default function MainPage() {
-  const t = useTranslations('home');
-  const { profile } = useProfile();
-  const firstName = profile?.name?.split(' ')[0];
-
   return (
     <div className='flex flex-auto'>
       <div className='max-w-4xl md:w-4xl mx-auto px-4 pt-4'>
-        <div>
-          <div className='text-5xl mt-70 text-center'>
-            {t('greeting', { name: firstName ?? '' })}
-          </div>
-          <div className='flex mt-8 w-full'>
-            <TermLookup />
+        <div className='space-y-8'>
+          <div className='flex w-full'>
+            <TermLookup
+              className='transition-[margin] pb-4'
+              hasTermClassname='mt-[2vh]'
+              noTermClassname='mt-[25vh]'
+            >
+              <AppGreeting className='mb-8' />
+            </TermLookup>
           </div>
         </div>
       </div>
