@@ -58,7 +58,7 @@ export const TermLookupTextarea = () => {
 
   return (
     <div>
-      <InputGroup>
+      <InputGroup className='bg-background'>
         <InputGroupTextarea
           maxLength={MAX_LENGTH}
           value={textareaValue}

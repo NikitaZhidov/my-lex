@@ -18,7 +18,9 @@
   },
   "common": {
     "name": "Name",
-    "clear": "Clear"
+    "clear": "Clear",
+    "AIVocabulary": "AI Vocabulary",
+    "Flashcards": "Flashcards"
   },
   "validation": {
     "failed": "Validation failed",

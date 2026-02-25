@@ -28,7 +28,7 @@ export default async function AppLayout({ children }: PropsWithChildren) {
           initialCollapsedState={sidebarInitialState}
         />
 
-        <div className='flex flex-col flex-auto'>
+        <div className='flex flex-col flex-auto bg-sidebar'>
           <AppHeader className='sticky top-0 bg-background shadow-xs z-0' />
 
           <div className='flex-auto flex'>{children}</div>

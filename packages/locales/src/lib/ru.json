@@ -18,7 +18,9 @@
   },
   "common": {
     "name": "Имя",
-    "clear": "Очистить"
+    "clear": "Очистить",
+    "AIVocabulary": "ИИ Словарь",
+    "Flashcards": "Флеш-карточки"
   },
   "validation": {
     "failed": "Ошибка валидации",

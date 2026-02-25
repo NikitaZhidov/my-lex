@@ -1,6 +1,7 @@
 export const APP_ROUTES = {
   REGISTER: '/register',
   LOGIN: '/login',
+  FLASHCARDS: '/flashcards',
 } as const;
 
 type AppRouteValues = (typeof APP_ROUTES)[keyof typeof APP_ROUTES];

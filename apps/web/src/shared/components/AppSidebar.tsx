@@ -1,20 +1,47 @@
 'use client';
 
-import { ArrowLeftFromLine, ArrowRightFromLine } from 'lucide-react';
+import {
+  ArrowLeftFromLine,
+  ArrowRightFromLine,
+  BrainCog,
+  FileStack,
+} from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import { useMemo, useState } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useMemo, useState, useTransition } from 'react';
 
 import { Button } from '@my-lex/ui';
 
 import appLogo from '../../../public/app-logo/app-logo-sm.png';
 import { cn, setCookie } from '../utils';
 
-import { APP_NAME, STORAGE_KEYS } from '@/constants';
+import { APP_NAME, APP_ROUTES, HOME_ROUTE, STORAGE_KEYS } from '@/constants';
 
 export interface AppSidebarProps {
   className?: string;
   initialCollapsedState: boolean;
 }
+
+interface SidebarRoute {
+  title: string;
+  icon: typeof FileStack;
+  href: string;
+}
+
+const SIDEBAR_ROUTES: SidebarRoute[] = [
+  {
+    title: 'common.AIVocabulary',
+    icon: BrainCog,
+    href: HOME_ROUTE,
+  },
+  {
+    title: 'common.Flashcards',
+    icon: FileStack,
+    href: APP_ROUTES.FLASHCARDS,
+  },
+];
 
 const APP_LOGO_SIZE = 36;
 
@@ -42,9 +69,9 @@ export const AppSidebar = ({
   return (
     <aside
       className={cn(
-        'sticky overflow-y-auto w-10 transition-[width] border-r border-r-border bg-sidebar pt-2.5',
+        'sticky overflow-y-auto w-10 transition-[width] border-r border-r-border bg-background pt-2.5',
         className,
-        collapsed ? collapsedSidebarWidthClass : 'w-72',
+        collapsed ? collapsedSidebarWidthClass : 'w-60',
       )}
     >
       {collapsed ? (
@@ -61,39 +88,66 @@ interface SidebarProps {
 }
 
 const CollapsedSidebar = ({ toggleCollapsed }: SidebarProps) => {
-  return (
-    <div
-      className={cn(
-        collapsedSidebarMaxWidthClass,
-        'group w-full flex items-center justify-center',
-      )}
-    >
-      <button onClick={toggleCollapsed}>
-        <Image
-          className='group-hover:hidden'
-          alt={APP_NAME}
-          width={APP_LOGO_SIZE}
-          height={APP_LOGO_SIZE}
-          src={appLogo}
-        />
-      </button>
+  const pathname = usePathname();
 
-      <Button
-        onClick={toggleCollapsed}
-        className={cn('hidden', 'group-hover:flex')}
-        size='icon'
-        variant='outline'
+  return (
+    <div className='flex flex-col gap-4'>
+      <div
+        className={cn(
+          collapsedSidebarMaxWidthClass,
+          'group w-full flex items-center justify-center',
+        )}
       >
-        <ArrowRightFromLine />
-      </Button>
+        <button onClick={toggleCollapsed}>
+          <Image
+            className='group-hover:hidden'
+            alt={APP_NAME}
+            width={APP_LOGO_SIZE}
+            height={APP_LOGO_SIZE}
+            src={appLogo}
+          />
+        </button>
+
+        <Button
+          onClick={toggleCollapsed}
+          className={cn('hidden', 'group-hover:flex')}
+          size='icon'
+          variant='outline'
+        >
+          <ArrowRightFromLine />
+        </Button>
+      </div>
+
+      <nav>
+        <ul className='flex flex-col gap-2 px-2'>
+          {SIDEBAR_ROUTES.map(route => {
+            return (
+              <li key={route.title} className='w-10'>
+                <Link className='w-full' href={route.href}>
+                  <Button
+                    className='w-full'
+                    size='icon'
+                    variant={pathname === route.href ? 'secondary' : 'ghost'}
+                  >
+                    <route.icon />
+                  </Button>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
     </div>
   );
 };
 
 const ExpandedSidebar = ({ toggleCollapsed }: SidebarProps) => {
+  const pathname = usePathname();
+  const t = useTranslations();
+
   return (
-    <>
-      <div className='flex items-center justify-between sticky top-0 bg-sidebar pr-2'>
+    <div className='flex flex-col gap-4'>
+      <div className='flex items-center justify-between sticky top-0 pr-2'>
         <div className='flex items-center'>
           <div
             className={cn(
@@ -118,10 +172,24 @@ const ExpandedSidebar = ({ toggleCollapsed }: SidebarProps) => {
       </div>
 
       <nav>
-        <ul>
-          <li></li>
+        <ul className='flex flex-col gap-2 px-2'>
+          {SIDEBAR_ROUTES.map(route => {
+            return (
+              <li key={route.title} className='w-full'>
+                <Link className='w-full' href={route.href}>
+                  <Button
+                    className='w-full justify-start'
+                    variant={pathname === route.href ? 'secondary' : 'ghost'}
+                  >
+                    <route.icon />
+                    {t(route.title)}
+                  </Button>
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </nav>
-    </>
+    </div>
   );
 };
