@@ -4,6 +4,9 @@
   "license": "MIT",
   "scripts": {
     "dev:db-push": "set POSTGRES_URL=postgresql://postgres:123456@localhost:5432/my-lex?schema=public && cd ./apps/api && prisma db push",
+    "dev:db-migrate": "set POSTGRES_URL=postgresql://postgres:123456@localhost:5432/my-lex?schema=public && cd ./apps/api && prisma migrate dev",
+    "dev:db-reset": "set POSTGRES_URL=postgresql://postgres:123456@localhost:5432/my-lex?schema=public && cd ./apps/api && prisma migrate reset",
+    "dev:db-deploy": "set POSTGRES_URL=postgresql://postgres:123456@localhost:5432/my-lex?schema=public && cd ./apps/api && prisma migrate deploy",
     "dev:web": "nx dev web",
     "dev:api": "nx serve api"
   },

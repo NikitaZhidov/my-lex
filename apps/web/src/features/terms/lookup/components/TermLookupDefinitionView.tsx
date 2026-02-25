@@ -32,6 +32,8 @@ export const TermLookupDefinitionView = () => {
   const removeTerm = () => setTerm('');
 
   // HOT TODO: implement saving (useMutation)
+
+  // HOT TODO: add migrations
   // HOT TODO: add edit button (try to use the lexical lib)
 
   return (

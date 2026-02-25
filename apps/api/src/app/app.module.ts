@@ -7,6 +7,7 @@ import { OAuthProviderConfigFactory } from '../config/oauth-providers.config';
 import { IS_DEV_ENV } from '../libs/common/utils/is-dev.utils';
 
 import { AuthModule } from './auth/auth.module';
+import { FlashcardsModule } from './flashcards/flashcards.module';
 import { OAuthModule } from './oauth/oauth.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { TermsModule } from './term/terms.module';
@@ -38,6 +39,7 @@ import { CustomZodValidationPipe } from './validation/zod-validation.pipe';
     UsersModule,
     AuthModule,
     TermsModule,
+    FlashcardsModule,
   ],
 })
 export class AppModule {}
