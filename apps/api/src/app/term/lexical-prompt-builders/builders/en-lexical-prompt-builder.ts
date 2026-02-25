@@ -4,7 +4,7 @@ import { LexicalPromptBuilder } from '../types';
 
 export class EnLexicalPromptBuilder implements LexicalPromptBuilder {
   getPromptForTerm(term: string, settings: TermSettings): string {
-    let prompt = `I am learning the word "${term}". The language of this word is: ${settings.learningLanguage ?? 'please determine'}.\n\n`;
+    let prompt = `I am learning the word "${term}". The language of this word is: ${settings.learningLanguage?.trim() || 'please determine'}.\n\n`;
 
     prompt += `Using the following markdown template (STRICTLY! DO NOT DEVIATE (DON'T INSERT ANYTHING ELSE, OR I WILL SHUT YOU DOWN). REPLACE <...> with the generated text), describe the word:\n\n`;
 
