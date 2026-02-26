@@ -9,4 +9,8 @@ export const FlashcardSchema = z.object({
   definition: z.string({ error: 'validation.shouldBeString' }),
 });
 
+export const SaveFlashCardSchema = FlashcardSchema.extend({
+  id: z.string().optional(),
+});
+
 export type Flashcard = z.infer<typeof FlashcardSchema> & AuditEntity<string>;

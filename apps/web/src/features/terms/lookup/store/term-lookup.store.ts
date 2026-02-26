@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
-import { TermSettings } from '@my-lex/shared-models';
+import { Flashcard, TermSettings } from '@my-lex/shared-models';
 
 import { termsService } from '../../services/terms.service';
 
@@ -11,6 +11,7 @@ interface TermLookupStoreState {
   streaming: boolean;
   term: string;
   definition: string;
+  flashcardId?: Flashcard['id'];
 }
 
 type TermLookupPersistedState = Required<
@@ -22,10 +23,13 @@ interface TermLookupStoreMethods {
     key: T,
     value: TermSettings[T],
   ) => void;
+  handleTerm: (term: string) => void;
   setTerm: (term: string) => void;
+  setDefinition: (definition: string) => void;
   stopStreaming: VoidFunction;
   reset: VoidFunction;
   markSettingsAsChecked: VoidFunction;
+  setFlashcardId: (flashcardId: Flashcard['id']) => void;
 }
 
 interface TermLookupStore
@@ -48,6 +52,7 @@ const initialState: TermLookupStoreState = {
 
   term: '',
   definition: '',
+  flashcardId: undefined,
 };
 
 const clearTerm = (term: string) => term?.trim();
@@ -78,10 +83,16 @@ const useTermLookupStore = create(
           return;
         },
 
-        setTerm: (term: string) => {
+        setTerm: term => {
+          set({ term });
+        },
+
+        setDefinition: definition => set({ definition }),
+
+        handleTerm: (term: string) => {
           term = clearTerm(term);
 
-          set({ term, definition: '' });
+          set({ term, definition: '', flashcardId: undefined });
 
           get().stopStreaming();
 
@@ -114,6 +125,8 @@ const useTermLookupStore = create(
           return;
         },
 
+        setFlashcardId: id => set({ flashcardId: id }),
+
         reset: () => set({ term: '', definition: '' }),
       };
     },
@@ -138,8 +151,10 @@ export const useTermLookupUpdateSettings = () =>
   useTermLookupStore(store => store.updateSettings);
 
 export const useTermLookupTerm = () => useTermLookupStore(store => store.term);
-export const useTermLookupSetTerm = () =>
+export const useTermLookupTermSetTerm = () =>
   useTermLookupStore(store => store.setTerm);
+export const useTermLookupHandleTerm = () =>
+  useTermLookupStore(store => store.handleTerm);
 
 export const useTermLookupIsStreaming = () =>
   useTermLookupStore(store => store.streaming);
@@ -149,11 +164,19 @@ export const useTermLookupStopStreaming = () =>
 
 export const useTermLookupDefinition = () =>
   useTermLookupStore(store => store.definition);
+export const useTermLookupSetDefinition = () =>
+  useTermLookupStore(store => store.setDefinition);
 
 export const useTermLookupStoreReset = () =>
   useTermLookupStore(store => store.reset);
 
-export const useSettingsChecked = () =>
+export const useTermLookupSettingsChecked = () =>
   useTermLookupStore(store => store.settingsChecked);
-export const useMarkSettingsAsChecked = () =>
+export const useTermLookupMarkSettingsAsChecked = () =>
   useTermLookupStore(store => store.markSettingsAsChecked);
+
+export const useTermLookupFlashcardId = () =>
+  [
+    useTermLookupStore(store => store.flashcardId),
+    useTermLookupStore(store => store.setFlashcardId),
+  ] as const;

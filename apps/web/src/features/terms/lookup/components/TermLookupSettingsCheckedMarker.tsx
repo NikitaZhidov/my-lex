@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { useSettingsChecked } from '../store';
+import { useTermLookupSettingsChecked } from '../store';
 
 import { cn } from '@/shared/utils';
 
@@ -12,7 +12,7 @@ export const TermLookupSettingsCheckedMarker = ({
   className,
 }: TermLookupSettingsCheckedMarkerProps) => {
   const [mounted, setIsMounted] = useState(false);
-  const settingsChecked = useSettingsChecked();
+  const settingsChecked = useTermLookupSettingsChecked();
 
   useEffect(() => {
     setIsMounted(true);

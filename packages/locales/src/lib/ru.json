@@ -23,7 +23,8 @@
     "Flashcards": "Флеш-карточки"
   },
   "flashcards": {
-    "savedSuccessfully": "Флеш-карточка успешно сохранена"
+    "savedSuccessfully": "Флеш-карточка успешно сохранена",
+    "notFound": "Флеш-карточка не была найдена"
   },
   "validation": {
     "failed": "Ошибка валидации",

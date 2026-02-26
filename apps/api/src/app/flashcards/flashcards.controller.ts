@@ -5,7 +5,7 @@ import { UserProfile } from '@my-lex/shared-models';
 import { Authorized } from '../auth/decorators/authorized.decorator';
 import { AuthGuard } from '../auth/guards/auth.guard';
 
-import { CreateFlashcardDto } from './dto/create-flashcard.dto';
+import { SaveFlashcardDto } from './dto/save-flashcard.dto';
 import { FlashcardsService } from './flashcards.service';
 
 @Controller('flashcards')
@@ -15,10 +15,10 @@ export class FlashcardsController {
   @UseGuards(AuthGuard)
   @Post()
   create(
-    @Body() createFlashcardDto: CreateFlashcardDto,
+    @Body() saveFlashCardDto: SaveFlashcardDto,
     @Authorized('id') userId: UserProfile['id'],
   ) {
-    return this.flashcardsService.create(userId, createFlashcardDto);
+    return this.flashcardsService.save(userId, saveFlashCardDto);
   }
 
   @UseGuards(AuthGuard)

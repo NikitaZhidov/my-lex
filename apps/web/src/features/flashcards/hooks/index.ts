@@ -1,1 +1,1 @@
-export * from './useCreateFlashcardMutation';
+export * from './useSaveFlashcardMutation';

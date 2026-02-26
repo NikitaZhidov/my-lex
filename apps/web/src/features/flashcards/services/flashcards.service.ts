@@ -3,8 +3,8 @@ import { Flashcard } from '@my-lex/shared-models';
 import { api } from '@/lib';
 
 class FlashcardsService {
-  async create(
-    card: Pick<Flashcard, 'term' | 'definition'>,
+  async save(
+    card: Pick<Flashcard, 'term' | 'definition' | 'id'>,
   ): Promise<Flashcard> {
     return api.post('/flashcards', card);
   }

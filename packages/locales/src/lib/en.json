@@ -23,7 +23,8 @@
     "Flashcards": "Flashcards"
   },
   "flashcards": {
-    "savedSuccessfully": "Flash card successfully saved"
+    "savedSuccessfully": "Flash card successfully saved",
+    "notFound": "Flash card not found"
   },
   "validation": {
     "failed": "Validation failed",

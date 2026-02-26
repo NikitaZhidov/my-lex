@@ -7,23 +7,27 @@ import { flashcardsService } from '../services';
 
 import { toastApiErrorHandler, toastSuccess } from '@/shared/utils';
 
-export const useCreateFlashcardMutation = (
+export const useSaveFlashcardMutation = (
   term: string,
   definition: string,
+  onSuccess?: (card: Flashcard) => void,
 ) => {
   const t = useTranslations();
 
   const {
-    mutate: create,
+    mutate: save,
     isPending: isLoading,
     isSuccess: isCreated,
   } = useMutation({
-    mutationKey: ['create-flashcard', term, definition],
-    mutationFn: (card: Pick<Flashcard, 'term' | 'definition'>) =>
-      flashcardsService.create(card),
+    mutationKey: ['save-flashcard', term, definition],
+    mutationFn: (card: Pick<Flashcard, 'term' | 'definition' | 'id'>) =>
+      flashcardsService.save(card),
     onError: toastApiErrorHandler(t),
-    onSuccess: () => toastSuccess(t('flashcards.savedSuccessfully')),
+    onSuccess: card => {
+      onSuccess?.(card);
+      toastSuccess(t('flashcards.savedSuccessfully'));
+    },
   });
 
-  return { create, isLoading, isCreated };
+  return { save, isLoading, isCreated };
 };
