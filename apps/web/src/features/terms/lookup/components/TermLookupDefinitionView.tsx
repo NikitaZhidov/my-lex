@@ -1,4 +1,4 @@
-import { SaveIcon, Trash } from 'lucide-react';
+import { CircleCheck, SaveIcon, Trash } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useTranslations } from 'next-intl';
 import Markdown from 'react-markdown';
@@ -21,6 +21,8 @@ import {
   useTermLookupTerm,
 } from '../store';
 
+import { useCreateFlashcardMutation } from '@/features/flashcards';
+
 export const TermLookupDefinitionView = () => {
   const t = useTranslations();
 
@@ -29,11 +31,20 @@ export const TermLookupDefinitionView = () => {
   const definition = useTermLookupDefinition();
   const streaming = useTermLookupIsStreaming();
 
-  const removeTerm = () => setTerm('');
+  const removeTerm = () => {
+    setTerm('');
+  };
 
-  // HOT TODO: implement saving (useMutation)
+  const {
+    create: createFlashcard,
+    isCreated,
+    isLoading,
+  } = useCreateFlashcardMutation(term, definition);
 
-  // HOT TODO: add migrations
+  const saveCurrentTermAsFlashcard = () => {
+    createFlashcard({ term, definition });
+  };
+
   // HOT TODO: add edit button (try to use the lexical lib)
 
   return (
@@ -51,8 +62,14 @@ export const TermLookupDefinitionView = () => {
               <CardAction>
                 {streaming ? (
                   <Spinner className='size-8' />
+                ) : isCreated ? (
+                  <CircleCheck className='text-success' />
                 ) : (
-                  <Button size='icon'>
+                  <Button
+                    disabled={isLoading}
+                    onClick={saveCurrentTermAsFlashcard}
+                    size='icon'
+                  >
                     <SaveIcon />
                   </Button>
                 )}

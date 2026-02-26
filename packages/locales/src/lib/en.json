@@ -22,6 +22,9 @@
     "AIVocabulary": "AI Vocabulary",
     "Flashcards": "Flashcards"
   },
+  "flashcards": {
+    "savedSuccessfully": "Flash card successfully saved"
+  },
   "validation": {
     "failed": "Validation failed",
     "email": {

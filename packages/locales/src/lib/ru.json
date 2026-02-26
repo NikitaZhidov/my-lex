@@ -22,6 +22,9 @@
     "AIVocabulary": "ИИ Словарь",
     "Flashcards": "Флеш-карточки"
   },
+  "flashcards": {
+    "savedSuccessfully": "Флеш-карточка успешно сохранена"
+  },
   "validation": {
     "failed": "Ошибка валидации",
     "email": {

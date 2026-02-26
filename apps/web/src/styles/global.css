@@ -43,6 +43,7 @@
 
   /* My colors */
   --warning: oklch(72.568% 0.16099 65.816);
+  --success: oklch(56.677% 0.1735 144.794);
 }
 
 .dark {
@@ -81,6 +82,7 @@
 
   /* My colors */
   --warning: oklch(75.426% 0.15594 70.026);
+  --success: oklch(0.696 0.17 162.48);
 }
 
 @theme inline {
@@ -122,6 +124,7 @@
   --color-sidebar-ring: var(--sidebar-ring);
 
   --color-warning: var(--warning);
+  --color-success: var(--success);
 }
 
 @layer base {
