@@ -9,7 +9,7 @@ export default async function FlashcardsPage() {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <div className='flex flex-auto'>
-        <div className='w-full md:p-16 sm:p-8 p-2'>
+        <div className='max-w-4xl md:w-4xl mx-auto px-4 pt-4'>
           <UserFlashcards />
         </div>
       </div>

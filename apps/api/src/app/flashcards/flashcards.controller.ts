@@ -1,6 +1,14 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 
-import { UserProfile } from '@my-lex/shared-models';
+import { Flashcard, UserProfile } from '@my-lex/shared-models';
 
 import { Authorized } from '../auth/decorators/authorized.decorator';
 import { AuthGuard } from '../auth/guards/auth.guard';
@@ -14,7 +22,7 @@ export class FlashcardsController {
 
   @UseGuards(AuthGuard)
   @Post()
-  create(
+  save(
     @Body() saveFlashCardDto: SaveFlashcardDto,
     @Authorized('id') userId: UserProfile['id'],
   ) {
@@ -25,5 +33,11 @@ export class FlashcardsController {
   @Get()
   getUserCards(@Authorized('id') userId: UserProfile['id']) {
     return this.flashcardsService.getAllByUserId(userId);
+  }
+
+  @UseGuards(AuthGuard)
+  @Delete(':flashcardId')
+  delete(@Param('flashcardId') flashcardId: Flashcard['id']) {
+    return this.flashcardsService.delete(flashcardId);
   }
 }

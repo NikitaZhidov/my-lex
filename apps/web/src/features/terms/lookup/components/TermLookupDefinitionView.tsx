@@ -1,7 +1,7 @@
 import { EditIcon, PlusCircle, SaveIcon, Trash } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { useEffectEvent, useRef, useState } from 'react';
 import Markdown from 'react-markdown';
 
 import {
@@ -26,11 +26,16 @@ import {
   useTermLookupTermSetTerm,
 } from '../store';
 
+// HOT TODO: add learning carousel
+// HOT TODO: basic layout for flashcard set
+
 import { useSaveFlashcardMutation } from '@/features/flashcards';
 import { MarkdownEditor } from '@/features/text-editor';
+import { useMousedownOutside } from '@/shared/hooks';
 import { cn } from '@/shared/utils';
 
 export const TermLookupDefinitionView = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const t = useTranslations();
 
   const term = useTermLookupTerm();
@@ -50,33 +55,43 @@ export const TermLookupDefinitionView = () => {
     handleTerm('');
   };
 
-  const { save: saveFlashcard, isLoading } = useSaveFlashcardMutation(
-    term,
-    definition,
-    card => setFlashcardId(card.id),
-  );
+  const { save: saveFlashcard, isLoading } = useSaveFlashcardMutation({
+    onSuccess: card => setFlashcardId(card.id),
+  });
 
   const saveCurrentTermAsFlashcard = () => {
     setEdit(false);
     saveFlashcard({ term, definition, id: flashcardId });
   };
 
-  const toggleEdit = () => {
+  useMousedownOutside(
+    containerRef,
+    {
+      condition: () => edit,
+      func: () => disableEditMode(),
+    },
+    [edit],
+  );
+
+  const enableEditMode = () => setEdit(true);
+
+  const disableEditMode = useEffectEvent(() => {
     if (edit) {
       if (flashcardId) {
         saveCurrentTermAsFlashcard();
       } else {
         setEdit(false);
       }
-    } else {
-      setEdit(true);
     }
-  };
+  });
+
+  const toggleEdit = () => (edit ? disableEditMode() : enableEditMode());
 
   return (
     <div>
       {(term || definition) && (
         <motion.div
+          ref={containerRef}
           initial={{ opacity: 0, translateY: '-20%' }}
           animate={{ opacity: 1, translateY: 0 }}
           transition={{ duration: 0.2 }}

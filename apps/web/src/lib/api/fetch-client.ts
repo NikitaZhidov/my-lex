@@ -1,8 +1,11 @@
 import { ApiError } from './api-error';
 
+export type FetchResponseParser<T> = (response: T) => T;
+
 export interface FetchClientOptions {
   baseUrl: string;
   optionsGetter?: () => Promise<RequestInit>;
+  jsonParsers?: FetchResponseParser<unknown>[];
 }
 
 export type FetchSearchParams = Record<
@@ -134,7 +137,16 @@ export class FetchClient {
       ?.includes('application/json');
 
     if (isJSON) {
-      return (await res.json()) as T;
+      const json = (await res.json()) as T;
+
+      if (!this.options.jsonParsers?.length) {
+        return json;
+      }
+
+      return (this.options.jsonParsers as FetchResponseParser<T>[]).reduce(
+        (acc, parser) => parser(acc),
+        json,
+      );
     }
 
     return (await res.text()) as T;

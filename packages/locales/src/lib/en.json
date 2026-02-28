@@ -17,14 +17,18 @@
     "system": "System"
   },
   "common": {
+    "add": "Add",
+    "cancel": "Cancel",
     "name": "Name",
     "clear": "Clear",
     "AIVocabulary": "AI Vocabulary",
-    "Flashcards": "Flashcards"
+    "Flashcards": "Flashcards",
+    "delete": "Delete"
   },
   "flashcards": {
     "savedSuccessfully": "Flash card successfully saved",
-    "notFound": "Flash card not found"
+    "notFound": "Flash card not found",
+    "noFlashcards": "No flashcards have been created yet"
   },
   "validation": {
     "failed": "Validation failed",

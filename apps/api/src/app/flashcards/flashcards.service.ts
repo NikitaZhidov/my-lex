@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 
-import { UserProfile } from '@my-lex/shared-models';
+import { Flashcard, UserProfile } from '@my-lex/shared-models';
 
 import { SaveFlashcardDto } from './dto/save-flashcard.dto';
 import { FlashcardsRepository } from './flashcards.repository';
@@ -27,5 +27,20 @@ export class FlashcardsService {
 
   async getAllByUserId(userId: UserProfile['id']) {
     return await this.flashcardsRepository.getByUserId(userId);
+  }
+
+  async delete(flashcardId: Flashcard['id']) {
+    if (!flashcardId) {
+      throw new BadRequestException('flashcards.notFound');
+    }
+
+    const existingFlashcard =
+      await this.flashcardsRepository.getById(flashcardId);
+
+    if (!existingFlashcard) {
+      throw new BadRequestException('flashcards.notFound');
+    }
+
+    await this.flashcardsRepository.delete(flashcardId);
   }
 }

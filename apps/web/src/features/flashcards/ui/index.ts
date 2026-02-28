@@ -1,2 +1,2 @@
-export * from './FlashcardsSet';
+export * from '../components/FlashcardsSet';
 export * from './FlashcardView';

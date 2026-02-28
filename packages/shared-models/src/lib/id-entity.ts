@@ -1,8 +1,8 @@
-export interface IdEntity<T> {
+export interface IdEntity<T = unknown> {
   id?: T;
 }
 
-export interface AuditEntity<T> extends IdEntity<T> {
+export interface AuditEntity<T = unknown> extends IdEntity<T> {
   createdAt?: Date;
   updatedAt?: Date;
 }

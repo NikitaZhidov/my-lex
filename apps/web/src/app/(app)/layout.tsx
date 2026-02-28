@@ -29,7 +29,7 @@ export default async function AppLayout({ children }: PropsWithChildren) {
         />
 
         <div className='flex flex-col flex-auto bg-sidebar'>
-          <AppHeader className='sticky top-0 bg-background shadow-xs z-0' />
+          <AppHeader className='sticky top-0 bg-background shadow-xs z-10' />
 
           <div className='flex-auto flex'>{children}</div>
         </div>

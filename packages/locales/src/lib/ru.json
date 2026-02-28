@@ -17,14 +17,18 @@
     "system": "Системная"
   },
   "common": {
+    "add": "Добавить",
+    "cancel": "Отменить",
     "name": "Имя",
     "clear": "Очистить",
     "AIVocabulary": "ИИ Словарь",
-    "Flashcards": "Флеш-карточки"
+    "Flashcards": "Флеш-карточки",
+    "delete": "Удалить"
   },
   "flashcards": {
     "savedSuccessfully": "Флеш-карточка успешно сохранена",
-    "notFound": "Флеш-карточка не была найдена"
+    "notFound": "Флеш-карточка не была найдена",
+    "noFlashcards": "Ни одной карточки пока не создано"
   },
   "validation": {
     "failed": "Ошибка валидации",

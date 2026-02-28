@@ -26,12 +26,14 @@ export interface MarkdownEditorProps {
   initialMarkdown: string;
   onChange?: (markdown: string) => void;
   className?: string;
+  autoFocus?: boolean;
 }
 
 export const MarkdownEditor = ({
   initialMarkdown,
   className,
   onChange,
+  autoFocus,
 }: MarkdownEditorProps) => {
   const initialConfig: InitialConfigType = {
     namespace: 'markdown-editor',
@@ -62,7 +64,7 @@ export const MarkdownEditor = ({
           ErrorBoundary={LexicalErrorBoundary}
         />
         <HistoryPlugin />
-        <AutoFocusPlugin />
+        {autoFocus && <AutoFocusPlugin />}
         <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
         <OnChangePlugin onChange={onChangeHandler} />
       </div>

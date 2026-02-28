@@ -42,6 +42,10 @@ export class FlashcardsRepository {
     return flashcard ? this.mapper.toFlashcardDto(flashcard) : null;
   }
 
+  async delete(id: Flashcard['id']) {
+    await this.prismaService.flashcard.delete({ where: { id } });
+  }
+
   async getByUserId(userId: User['id']) {
     const flashcards = await this.prismaService.flashcard.findMany({
       where: { userId },
