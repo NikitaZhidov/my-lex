@@ -15,7 +15,7 @@ export const UserFlashcards = () => {
   }
 
   const sortedFlashcards = useMemo(
-    () => [...flashcards].sort(sortByCreatedAt),
+    () => [...flashcards].sort(sortByCreatedAt(true)),
     [flashcards],
   );
 

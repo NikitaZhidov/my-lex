@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import { Button, Popover, PopoverContent, PopoverTrigger } from '@my-lex/ui';
 
-import { FlashcardOverview } from '../FlashcardOverview';
+import { FlashcardOverview } from '../../components/FlashcardOverview';
 
 import { cn } from '@/shared/utils';
 
