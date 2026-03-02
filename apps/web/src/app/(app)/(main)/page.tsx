@@ -5,16 +5,14 @@ export default function MainPage() {
   return (
     <div className='flex flex-auto'>
       <div className='max-w-4xl md:w-4xl mx-auto px-4 pt-4'>
-        <div className='space-y-8'>
-          <div className='flex w-full'>
-            <TermLookup
-              className='transition-[margin] pb-4'
-              hasTermClassname='mt-[2vh]'
-              noTermClassname='mt-[25vh]'
-            >
-              <AppGreeting className='mb-8' />
-            </TermLookup>
-          </div>
+        <div className='flex w-full'>
+          <TermLookup
+            className='transition-[margin] pb-4'
+            hasTermClassname='mt-[2vh]'
+            noTermClassname='mt-[25vh]'
+          >
+            <AppGreeting className='mb-8' />
+          </TermLookup>
         </div>
       </div>
     </div>

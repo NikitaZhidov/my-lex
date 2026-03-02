@@ -16,3 +16,4 @@ export * from './toggle';
 export * from './switch';
 export * from './tooltip';
 export * from './input-group';
+export * from './badge';

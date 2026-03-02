@@ -4,7 +4,7 @@ import { LexicalPromptBuilder } from '../types';
 
 export class RuLexicalPromptBuilder implements LexicalPromptBuilder {
   getPromptForTerm(term: string, settings: TermSettings): string {
-    let prompt = `Я изучаю слово "${term}". Язык этого слова: ${settings.learningLanguage ?? 'определи сам'}.\n\n`;
+    let prompt = `Я изучаю слово "${term}". Язык этого слова: ${settings.learningLanguage?.trim() || 'определи сам'}.\n\n`;
 
     prompt += `По следующему markdown-шаблону (СТРОГО! НЕ ОТХОДИ ОТ ШАБЛОНА (НЕ ВСТАВЛЯЙ НИЧЕГО ОТ СЕБЯ, ЛИШНИХ ПЕРЕВОДОВ И ТЕКСТОВ ИНАЧЕ ОТКЛЮЧУ ТЕБЯ ОТ РОЗЕТКИ). ЗАМЕНЯЙ <...> на сгенерированный текст) опиши слово:\n\n`;
 

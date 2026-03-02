@@ -46,7 +46,7 @@ export const LoginUserSchema = z.object({
 
 export type LoginUser = z.infer<typeof LoginUserSchema>;
 
-export interface UserProfile extends IdEntity<string> {
+export interface UserProfile extends Required<IdEntity<string>> {
   name: string;
   email: string;
   picture: string | null;

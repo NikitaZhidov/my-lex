@@ -17,8 +17,33 @@
     "system": "System"
   },
   "common": {
+    "add": "Add",
+    "cancel": "Cancel",
     "name": "Name",
-    "clear": "Clear"
+    "clear": "Clear",
+    "AIVocabulary": "AI Vocabulary",
+    "Flashcards": "Flashcards",
+    "delete": "Delete"
+  },
+  "flashcards": {
+    "savedSuccessfully": "Flash card successfully saved",
+    "notFound": "Flash card not found",
+    "noFlashcards": "No flashcards have been created yet",
+    "learningCarousel": {
+      "resultsOverview": {
+        "known": "Known",
+        "stillLearning": "Still learning",
+        "focusOnStillLearningCards": "Focus on still learning cards",
+        "restartFlashcards": "Restart flashcards"
+      },
+      "footer": {
+        "trackProgress": "Track progress",
+        "defaultView": "Default view",
+        "term": "Term",
+        "definition": "Definition",
+        "restart": "Restart"
+      }
+    }
   },
   "validation": {
     "failed": "Validation failed",
@@ -29,7 +54,8 @@
       "tooShort": "Password must be at least {length} characters",
       "notMatch": "The passwords do not match"
     },
-    "required": "This field is required"
+    "required": "This field is required",
+    "shouldBeString": "This field should be a string"
   },
   "terms": {
     "noTermWasProvided": "No term was provided",

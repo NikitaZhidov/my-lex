@@ -13,9 +13,9 @@ import {
 } from '@my-lex/ui';
 
 import {
-  useMarkSettingsAsChecked,
+  useTermLookupHandleTerm,
   useTermLookupIsStreaming,
-  useTermLookupSetTerm,
+  useTermLookupMarkSettingsAsChecked,
   useTermLookupSettings,
   useTermLookupStopStreaming,
 } from '../store';
@@ -29,9 +29,9 @@ export const TermLookupTextarea = () => {
   const t = useTranslations('terms.lookup');
   const [textareaValue, setTextAreaValue] = useState('');
 
-  const setTerm = useTermLookupSetTerm();
+  const setTerm = useTermLookupHandleTerm();
   const streaming = useTermLookupIsStreaming();
-  const markSettingsAsChecked = useMarkSettingsAsChecked();
+  const markSettingsAsChecked = useTermLookupMarkSettingsAsChecked();
   const settings = useTermLookupSettings();
 
   const stopStreaming = useTermLookupStopStreaming();
@@ -58,7 +58,7 @@ export const TermLookupTextarea = () => {
 
   return (
     <div>
-      <InputGroup>
+      <InputGroup className='bg-background'>
         <InputGroupTextarea
           maxLength={MAX_LENGTH}
           value={textareaValue}

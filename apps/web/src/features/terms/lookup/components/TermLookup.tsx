@@ -3,7 +3,11 @@
 import { AnimatePresence, motion } from 'motion/react';
 import { PropsWithChildren, useEffect, useMemo } from 'react';
 
-import { useTermLookupStoreReset, useTermLookupTerm } from '../store';
+import {
+  useTermLookupDefinition,
+  useTermLookupStoreReset,
+  useTermLookupTerm,
+} from '../store';
 
 import { TermLookupDefinitionView } from './TermLookupDefinitionView';
 import { TermLookupTextarea } from './TermLookupTextarea';
@@ -24,7 +28,11 @@ export const TermLookup = ({
   const reset = useTermLookupStoreReset();
 
   const term = useTermLookupTerm();
-  const hasTerm = useMemo(() => term && term.length > 0, [term]);
+  const definition = useTermLookupDefinition();
+  const hasTerm = useMemo(
+    () => (term && term.length > 0) || (definition && definition.length > 0),
+    [term, definition],
+  );
 
   useEffect(() => {
     return () => reset();

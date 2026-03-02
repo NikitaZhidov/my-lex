@@ -17,8 +17,33 @@
     "system": "Системная"
   },
   "common": {
+    "add": "Добавить",
+    "cancel": "Отменить",
     "name": "Имя",
-    "clear": "Очистить"
+    "clear": "Очистить",
+    "AIVocabulary": "ИИ Словарь",
+    "Flashcards": "Флеш-карточки",
+    "delete": "Удалить"
+  },
+  "flashcards": {
+    "savedSuccessfully": "Флеш-карточка успешно сохранена",
+    "notFound": "Флеш-карточка не была найдена",
+    "noFlashcards": "Ни одной карточки пока не создано",
+    "learningCarousel": {
+      "resultsOverview": {
+        "known": "Выучено",
+        "stillLearning": "Ещё учу",
+        "focusOnStillLearningCards": "Повторить только те, что ещё учу",
+        "restartFlashcards": "Начать заново"
+      },
+      "footer": {
+        "trackProgress": "Отслеживать прогресс",
+        "defaultView": "Вид по умолчанию",
+        "term": "Термин",
+        "definition": "Определение",
+        "restart": "Заново"
+      }
+    }
   },
   "validation": {
     "failed": "Ошибка валидации",
@@ -29,7 +54,8 @@
       "tooShort": "Пароль должен содержать минимум {length} символов",
       "notMatch": "Пароли не совпадают"
     },
-    "required": "Это поле обязательно"
+    "required": "Это поле обязательно",
+    "shouldBeString": "Это поле должно быть строкой"
   },
   "terms": {
     "NoTermWasProvided": "Никакого слова не предоставлено",
