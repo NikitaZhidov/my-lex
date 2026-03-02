@@ -28,7 +28,22 @@
   "flashcards": {
     "savedSuccessfully": "Флеш-карточка успешно сохранена",
     "notFound": "Флеш-карточка не была найдена",
-    "noFlashcards": "Ни одной карточки пока не создано"
+    "noFlashcards": "Ни одной карточки пока не создано",
+    "learningCarousel": {
+      "resultsOverview": {
+        "known": "Выучено",
+        "stillLearning": "Ещё учу",
+        "focusOnStillLearningCards": "Повторить только те, что ещё учу",
+        "restartFlashcards": "Начать заново"
+      },
+      "footer": {
+        "trackProgress": "Отслеживать прогресс",
+        "defaultView": "Вид по умолчанию",
+        "term": "Термин",
+        "definition": "Определение",
+        "restart": "Заново"
+      }
+    }
   },
   "validation": {
     "failed": "Ошибка валидации",

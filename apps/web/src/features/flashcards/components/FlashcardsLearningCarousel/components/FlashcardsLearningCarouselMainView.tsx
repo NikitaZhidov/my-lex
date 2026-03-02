@@ -10,7 +10,11 @@ import {
 } from '@/features/flashcards';
 
 export const FlashcardsLearningCarouselMainView = () => {
-  const { state, dispatch, flashcards } = useFlashcardsLearningCarouselStore();
+  const {
+    state,
+    dispatch,
+    activeFlashcards: flashcards,
+  } = useFlashcardsLearningCarouselStore();
 
   const changeView = (view: FlippableFlashcardProps['view']) =>
     dispatch({ type: 'SET_VIEW', view });

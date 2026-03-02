@@ -26,9 +26,6 @@ import {
   useTermLookupTermSetTerm,
 } from '../store';
 
-// HOT TODO: add learning carousel
-// HOT TODO: basic layout for flashcard set
-
 import { useSaveFlashcardMutation } from '@/features/flashcards';
 import { MarkdownEditor } from '@/features/text-editor';
 import { useMousedownOutside } from '@/shared/hooks';

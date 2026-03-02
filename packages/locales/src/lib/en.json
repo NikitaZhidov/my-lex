@@ -28,7 +28,22 @@
   "flashcards": {
     "savedSuccessfully": "Flash card successfully saved",
     "notFound": "Flash card not found",
-    "noFlashcards": "No flashcards have been created yet"
+    "noFlashcards": "No flashcards have been created yet",
+    "learningCarousel": {
+      "resultsOverview": {
+        "known": "Known",
+        "stillLearning": "Still learning",
+        "focusOnStillLearningCards": "Focus on still learning cards",
+        "restartFlashcards": "Restart flashcards"
+      },
+      "footer": {
+        "trackProgress": "Track progress",
+        "defaultView": "Default view",
+        "term": "Term",
+        "definition": "Definition",
+        "restart": "Restart"
+      }
+    }
   },
   "validation": {
     "failed": "Validation failed",

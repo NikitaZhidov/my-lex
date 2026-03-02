@@ -67,7 +67,12 @@ export const FlashcardsLearningCarouselProvider = ({
 
   return (
     <FlashcardsLearningCarouselContext.Provider
-      value={{ state, dispatch, flashcards: filteredFlashcards }}
+      value={{
+        state,
+        dispatch,
+        activeFlashcards: filteredFlashcards,
+        allFlashcardsLength: flashcards.length,
+      }}
     >
       {children}
     </FlashcardsLearningCarouselContext.Provider>

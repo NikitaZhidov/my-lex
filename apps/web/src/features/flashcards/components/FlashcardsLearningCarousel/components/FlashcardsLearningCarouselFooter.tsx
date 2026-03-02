@@ -24,7 +24,11 @@ import { useDeleteFlashcardMutation } from '@/features/flashcards/hooks';
 export const FlashcardsLearningCarouselFooter = () => {
   const t = useTranslations();
 
-  const { flashcards, state, dispatch } = useFlashcardsLearningCarouselStore();
+  const {
+    activeFlashcards: flashcards,
+    state,
+    dispatch,
+  } = useFlashcardsLearningCarouselStore();
 
   const { deleteCard, isLoading: isDeleting } = useDeleteFlashcardMutation();
 
@@ -54,7 +58,6 @@ export const FlashcardsLearningCarouselFooter = () => {
     return <div className='h-9'></div>;
   }
 
-  // HOT TODO: add translations
   return (
     <div className='flex items-center gap-2 w-full justify-between'>
       <div className='w-1/3 pl-2'>
@@ -64,7 +67,7 @@ export const FlashcardsLearningCarouselFooter = () => {
             onCheckedChange={changeTrackProgress}
             id='track-progress'
           />
-          <FieldLabel htmlFor='track-progress'>Track progress</FieldLabel>
+          <FieldLabel htmlFor='track-progress'>{t('flashcards.learningCarousel.footer.trackProgress')}</FieldLabel>
         </div>
       </div>
 
@@ -79,25 +82,24 @@ export const FlashcardsLearningCarouselFooter = () => {
           </DropdownMenuTrigger>
 
           <DropdownMenuContent>
-            {/* HOT TODO: add translations */}
             <DropdownMenuSub>
-              <DropdownMenuSubTrigger>Default view</DropdownMenuSubTrigger>
+              <DropdownMenuSubTrigger>{t('flashcards.learningCarousel.footer.defaultView')}</DropdownMenuSubTrigger>
               <DropdownMenuPortal>
                 <DropdownMenuSubContent>
                   <DropdownMenuItem onClick={setTermAsDefaultView}>
                     {state.defaultView === 'term' && <Check />}
-                    Term
+                    {t('flashcards.learningCarousel.footer.term')}
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={setDefinitionAsDefaultView}>
                     {state.defaultView === 'definition' && <Check />}
-                    Definition
+                    {t('flashcards.learningCarousel.footer.definition')}
                   </DropdownMenuItem>
                 </DropdownMenuSubContent>
               </DropdownMenuPortal>
             </DropdownMenuSub>
 
             <DropdownMenuItem onClick={restartFlashcards}>
-              Restart
+              {t('flashcards.learningCarousel.footer.restart')}
             </DropdownMenuItem>
 
             {flashcardId && (

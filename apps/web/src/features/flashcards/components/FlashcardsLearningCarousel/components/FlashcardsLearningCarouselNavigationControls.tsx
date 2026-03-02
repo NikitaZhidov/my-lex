@@ -13,7 +13,11 @@ import { Button } from '@my-lex/ui';
 import { useFlashcardsLearningCarouselStore } from '../hooks/useFlashcardsLearningCarouselStore';
 
 export const FlashcardsLearningCarouselNavigationControls = () => {
-  const { flashcards, state, dispatch } = useFlashcardsLearningCarouselStore();
+  const {
+    activeFlashcards: flashcards,
+    state,
+    dispatch,
+  } = useFlashcardsLearningCarouselStore();
 
   const canClickPrev = useMemo(
     () => state.activeIndex > 0,

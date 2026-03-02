@@ -34,7 +34,8 @@ type Action =
   | { type: 'SET_DEFAULT_VIEW'; view: FlashcardView };
 
 export type FlashcardsLearningCarouselContext = {
-  flashcards: Flashcard[];
+  activeFlashcards: Flashcard[];
+  allFlashcardsLength: number;
   state: FlashcardsLearningCarouselStore;
   dispatch: Dispatch<Action>;
 };
