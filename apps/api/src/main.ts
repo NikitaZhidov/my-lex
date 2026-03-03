@@ -7,12 +7,15 @@ import expressSession from 'express-session';
 import { createClient } from 'redis';
 
 import { AppModule } from './app/app.module';
+import { LoggerMiddleware } from './libs/common/middlewares/logger.middleware';
 
 const APP_GLOBAL_PREFIX = 'api';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService);
+
+  app.use(new LoggerMiddleware().use);
 
   app.enableCors({
     origin: configService.getOrThrow('WEB_APP_BASE_URL'),
@@ -49,7 +52,7 @@ async function bootstrap() {
     }),
   );
 
-  const port = process.env.PORT || 3001;
+  const port = configService.getOrThrow<string>('API_PORT') || 3001;
   await app.listen(port);
 
   Logger.log(

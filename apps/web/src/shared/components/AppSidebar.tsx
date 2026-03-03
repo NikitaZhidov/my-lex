@@ -10,7 +10,7 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useMemo, useState, useTransition } from 'react';
+import { useMemo, useState } from 'react';
 
 import { Button } from '@my-lex/ui';
 

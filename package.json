@@ -3,12 +3,18 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "dev:db-push": "set POSTGRES_URL=postgresql://postgres:123456@localhost:5432/my-lex?schema=public && cd ./apps/api && prisma db push",
-    "dev:db-migrate": "set POSTGRES_URL=postgresql://postgres:123456@localhost:5432/my-lex?schema=public && cd ./apps/api && prisma migrate dev",
-    "dev:db-reset": "set POSTGRES_URL=postgresql://postgres:123456@localhost:5432/my-lex?schema=public && cd ./apps/api && prisma migrate reset",
-    "dev:db-deploy": "set POSTGRES_URL=postgresql://postgres:123456@localhost:5432/my-lex?schema=public && cd ./apps/api && prisma migrate deploy",
+    "local-dev:db-push": "set POSTGRES_URL=postgresql://postgres:123456@localhost:5432/my-lex?schema=public && cd ./apps/api && prisma db push",
+    "local-dev:db-migrate": "set POSTGRES_URL=postgresql://postgres:123456@localhost:5432/my-lex?schema=public && cd ./apps/api && prisma migrate dev",
+    "local-dev:db-reset": "set POSTGRES_URL=postgresql://postgres:123456@localhost:5432/my-lex?schema=public && cd ./apps/api && prisma migrate reset",
+    "local-dev:db-deploy": "set POSTGRES_URL=postgresql://postgres:123456@localhost:5432/my-lex?schema=public && cd ./apps/api && prisma migrate deploy",
+    "db-deploy": "cd ./apps/api && prisma migrate deploy",
+    "db-generate": "cd ./apps/api && prisma generate",
+    "dev:api": "nx serve api",
     "dev:web": "nx dev web",
-    "dev:api": "nx serve api"
+    "build:api": "nx build api",
+    "start:api": "node apps/api/dist/main.js",
+    "build:web": "nx build web",
+    "start:web": "nx start web"
   },
   "private": true,
   "dependencies": {
