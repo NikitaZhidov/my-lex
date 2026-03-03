@@ -4,18 +4,10 @@ import { isServer } from '@/shared/utils';
 
 const getApiBaseUrl = () => {
   if (isServer()) {
-    return (
-      process.env.API_INTERNAL_BASE_URL ??
-      process.env.NEXT_PUBLIC_API_BASE_URL ??
-      ''
-    );
+    return process.env.API_INTERNAL_BASE_URL ?? '';
   }
 
-  return (
-    process.env.NEXT_PUBLIC_API_BASE_URL ??
-    process.env.API_INTERNAL_BASE_URL ??
-    ''
-  );
+  return process.env.NEXT_PUBLIC_API_BASE_URL ?? '';
 };
 
 export const api = new FetchClient({

@@ -3,6 +3,9 @@ FROM node:22 AS builder
 
 WORKDIR /app
 
+ARG NEXT_PUBLIC_API_BASE_URL
+ENV NEXT_PUBLIC_API_BASE_URL=${NEXT_PUBLIC_API_BASE_URL}
+
 COPY package*.json ./
 COPY nx.json tsconfig.base.json tsconfig.json ./
 
