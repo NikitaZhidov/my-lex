@@ -14,7 +14,7 @@ export const AIModelProviderFactory = (
   configService: ConfigService,
 ): AIModelProvider => {
   const providerName =
-    configService.getOrThrow<AIModelProviderName>('AI_PROVIDER');
+    configService.get<AIModelProviderName>('AI_PROVIDER') ?? 'mock';
 
   switch (providerName) {
     case 'google':

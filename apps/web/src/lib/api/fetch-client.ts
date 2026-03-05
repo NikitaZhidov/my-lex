@@ -126,6 +126,9 @@ export class FetchClient {
 
     const res = await fetch(url, config);
 
+    // TODO: remove later
+    console.log(`REQUEST: ${url}`);
+
     if (!res.ok) {
       const err = (await res.json()) as BackendError | undefined;
 

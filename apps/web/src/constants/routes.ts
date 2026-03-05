@@ -1,6 +1,7 @@
 export const APP_ROUTES = {
   REGISTER: '/register',
   LOGIN: '/login',
+  LOGOUT: '/logout',
   FLASHCARDS: '/flashcards',
 } as const;
 
