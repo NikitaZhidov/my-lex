@@ -19,4 +19,13 @@ COPY . .
 
 RUN npm run build:web
 
-CMD npm run start:web
+
+FROM node:22-alpine AS runner
+
+WORKDIR /app
+
+COPY --from=builder /app/apps/web/.next/standalone/ ./
+COPY --from=builder /app/apps/web/public ./public
+COPY --from=builder /app/apps/web/.next/static ./apps/web/.next/static
+
+CMD [ "node", "/app/apps/web/server.js" ]
