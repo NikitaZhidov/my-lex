@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { cookies } from 'next/headers';
 
+import favicon from '../../public/favicon.ico';
 import '../styles/global.css';
 
 import { APP_NAME } from '@/constants/app-name';
@@ -25,6 +26,7 @@ export default async function RootLayout({
 
   return (
     <html suppressHydrationWarning lang={locale}>
+      <link rel='icon' href={favicon.src} />
       <body>
         <MainProvider>{children}</MainProvider>
       </body>
