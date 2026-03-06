@@ -34,8 +34,8 @@ jobs:
     environment: prod
 
     permissions:
-    contents: read
-    packages: write
+      contents: read
+      packages: write
 
     steps:
       - uses: actions/checkout@v5
