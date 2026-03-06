@@ -28,6 +28,7 @@ jobs:
         with:
           name: last-successful-commit
           path: ./
+        continue-on-error: true
 
       - run: npm ci
       - uses: nrwl/nx-set-shas@v4
