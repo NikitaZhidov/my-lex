@@ -27,6 +27,7 @@ jobs:
       - run: npx nx run-many -t test lint build --all
 
   build-and-push-apps-images:
+    needs: build-test-lint
     runs-on: ubuntu-latest
     environment: prod
     steps:
@@ -49,6 +50,7 @@ jobs:
       - name: Build and push WEB IMAGE
         uses: docker/build-push-action@v6
         with:
+          push: true
           context: .
           file: ./apps/web/Dockerfile
           tags: ${{ steps.web_meta.outputs.tags }}
@@ -66,6 +68,7 @@ jobs:
       - name: Build and push API IMAGE
         uses: docker/build-push-action@v6
         with:
+          push: true
           context: .
           file: ./apps/api/Dockerfile
           tags: ${{ steps.api_meta.outputs.tags }}
