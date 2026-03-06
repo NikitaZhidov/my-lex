@@ -87,6 +87,8 @@ jobs:
           labels: ${{ steps.web_meta.outputs.labels }}
           build-args: |
             NEXT_PUBLIC_API_BASE_URL=${{ secrets.API_BASE_URL }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       # API IMAGE
       - name: Extract metadata for API IMAGE
@@ -107,6 +109,8 @@ jobs:
           file: ./apps/api/Dockerfile
           tags: ${{ steps.api_meta.outputs.tags }}
           labels: ${{ steps.api_meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
   deploy:
     needs: build-and-push-apps-images
@@ -114,7 +118,7 @@ jobs:
     environment: prod
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Upload docker compose to the server
         uses: appleboy/scp-action@v1
