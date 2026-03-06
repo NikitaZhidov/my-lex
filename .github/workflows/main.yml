@@ -14,8 +14,18 @@ env:
 jobs:
   build-test-lint:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: 'read'
+      actions: 'read'
+      pull-requests: 'read'
+
     steps:
       - uses: actions/checkout@v5
+        with:
+          # We need to fetch all branches and commits so that Nx affected has a base to compare against.
+          fetch-depth: 0
+          filter: tree:0 # Optional, but recommended: reduce the size of the checkout with tree filtering
 
       - name: Use node.js
         uses: actions/setup-node@v4
@@ -23,26 +33,19 @@ jobs:
           node-version: '22.x'
           cache: 'npm'
 
-      - name: Download last successful commit
-        uses: actions/download-artifact@v4
-        with:
-          name: last-successful-commit
-          path: ./
-        continue-on-error: true
-
       - run: npm ci
       - uses: nrwl/nx-set-shas@v4
+        with:
+          main-branch-name: 'master'
+
+      - run: |
+          echo "BASE: ${{ env.NX_BASE }}"
+          echo "HEAD: ${{ env.NX_HEAD }}"
 
       - run: npm run db-generate
       - run: npx nx affected --base=$(cat last_successful_commit.txt 2>/dev/null) -t lint test build
 
       - run: echo $GITHUB_SHA > last_successful_commit.txt
-
-      - name: Save last successful commit
-        uses: actions/upload-artifact@v4
-        with:
-          name: last-successful-commit
-          path: last_successful_commit.txt
 
   build-and-push-apps-images:
     needs: build-test-lint
