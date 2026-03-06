@@ -1,0 +1,72 @@
+name: My-lex CI/CD
+run-name: CI/CD
+
+on:
+  push:
+    branches:
+      - master
+
+env:
+  REGISTRY: ghcr.io
+  WEB_IMAGE_NAME: ${{ github.repository }}/web
+  API_IMAGE_NAME: ${{ github.repository }}/api
+
+jobs:
+  build-test-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Use node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+          cache: 'npm'
+
+      - run: npm ci
+
+      - run: npx nx run-many -t test lint build --all
+
+  build-and-push-apps-images:
+    runs-on: ubuntu-latest
+    environment: prod
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Login to the registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # WEB IMAGE
+      - name: Extract metadata for WEB IMAGE
+        id: web_meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.WEB_IMAGE_NAME }}
+
+      - name: Build and push WEB IMAGE
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./apps/web/Dockerfile
+          tags: ${{ steps.web_meta.outputs.tags }}
+          labels: ${{ steps.web_meta.outputs.labels }}
+          build-args: |
+            NEXT_PUBLIC_API_BASE_URL=${{ secrets.API_BASE_URL }}
+
+      # API IMAGE
+      - name: Extract metadata for API IMAGE
+        id: api_meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.API_IMAGE_NAME }}
+
+      - name: Build and push API IMAGE
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./apps/api/Dockerfile
+          tags: ${{ steps.api_meta.outputs.tags }}
+          labels: ${{ steps.api_meta.outputs.labels }}
