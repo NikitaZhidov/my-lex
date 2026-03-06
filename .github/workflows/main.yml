@@ -23,9 +23,10 @@ jobs:
           cache: 'npm'
 
       - run: npm ci
-      - run: npm run db-generate
+      - uses: nrwl/nx-set-shas@v4
 
-      - run: npx nx run-many -t test lint build --all
+      - run: npm run db-generate
+      - run: npx nx affected -t lint test build
 
   build-and-push-apps-images:
     needs: build-test-lint
