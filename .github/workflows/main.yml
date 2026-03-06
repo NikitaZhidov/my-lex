@@ -43,7 +43,7 @@ jobs:
           echo "HEAD: ${{ env.NX_HEAD }}"
 
       - run: npm run db-generate
-      - run: npx nx affected --base=$(cat last_successful_commit.txt 2>/dev/null) -t lint test build
+      - run: npx nx affected -t lint test build
 
       - run: echo $GITHUB_SHA > last_successful_commit.txt
 
@@ -114,6 +114,19 @@ jobs:
     environment: prod
 
     steps:
+      - uses: actions/checkout@v4
+
+      - name: Upload docker compose to the server
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          source: 'docker-compose.prod.yml'
+          target: /home/${{ secrets.SERVER_USER }}/my-lex/
+          overwrite: true
+
       - name: Connect to the server and deploy
         uses: appleboy/ssh-action@v1
         with:
@@ -121,10 +134,6 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            mkdir -p /home/${{ secrets.SERVER_USER }}/my-lex
-            cat > /home/${{ secrets.SERVER_USER }}/my-lex/docker-compose.prod.yml <<'EOF'
-            $(cat docker-compose.prod.yml)
-            EOF
             cd /home/${{ secrets.SERVER_USER }}/my-lex
             docker compose -f docker-compose.prod.yml pull
             docker compose -f docker-compose.prod.yml up -d
