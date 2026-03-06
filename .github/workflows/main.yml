@@ -117,12 +117,12 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-        script: |
-          mkdir -p /home/${{ secrets.SERVER_USER }}/my-lex
-          cat > /home/${{ secrets.SERVER_USER }}/my-lex/docker-compose.prod.yml <<'EOF'
-          $(cat docker-compose.prod.yml)
-          EOF
-          cd /home/${{ secrets.SERVER_USER }}/my-lex
-          docker compose -f docker-compose.prod.yml pull
-          docker compose -f docker-compose.prod.yml up -d
-          docker system prune -f
+          script: |
+            mkdir -p /home/${{ secrets.SERVER_USER }}/my-lex
+            cat > /home/${{ secrets.SERVER_USER }}/my-lex/docker-compose.prod.yml <<'EOF'
+            $(cat docker-compose.prod.yml)
+            EOF
+            cd /home/${{ secrets.SERVER_USER }}/my-lex
+            docker compose -f docker-compose.prod.yml pull
+            docker compose -f docker-compose.prod.yml up -d
+            docker system prune -f
