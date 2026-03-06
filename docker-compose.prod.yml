@@ -85,7 +85,7 @@ services:
       api:
         condition: service_started
     environment:
-      API_INTERNAL_BASE_URL=http://api:3001/api
+      - API_INTERNAL_BASE_URL=http://api:3001/api
 
 volumes:
   postgres_data:
