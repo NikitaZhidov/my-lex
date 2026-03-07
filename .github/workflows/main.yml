@@ -11,6 +11,10 @@ env:
   WEB_IMAGE_NAME: ${{ github.repository }}/web
   API_IMAGE_NAME: ${{ github.repository }}/api
 
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build-test-lint:
     runs-on: ubuntu-latest
