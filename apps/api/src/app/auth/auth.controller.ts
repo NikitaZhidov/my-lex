@@ -7,6 +7,7 @@ import {
   Res,
   Session,
 } from '@nestjs/common';
+import { Recaptcha } from '@nestlab/google-recaptcha';
 import { type Request, type Response } from 'express';
 
 import { AuthService } from './auth.service';
@@ -21,11 +22,13 @@ export class AuthController {
     private readonly loginHandlerFactory: LoginHandlerFactory,
   ) {}
 
+  @Recaptcha()
   @Post('register')
   async register(@Body() registerDto: RegisterDto) {
     return this.authService.register(registerDto);
   }
 
+  @Recaptcha()
   @Post('login')
   @HttpCode(HttpStatus.OK)
   async login(

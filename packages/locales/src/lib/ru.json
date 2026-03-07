@@ -9,7 +9,8 @@
     "password": "Пароль",
     "repeatPassword": "Повторите пароль",
     "email": "Email",
-    "registrationWasSuccessful": "Регистрация прошла успешно"
+    "registrationWasSuccessful": "Регистрация прошла успешно",
+    "completeRecaptcha": "Пройдите reCAPTCHA"
   },
   "theme": {
     "dark": "Тёмная",

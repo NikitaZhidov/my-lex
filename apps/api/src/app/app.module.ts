@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
+import { APP_GUARD, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { ZodSerializerInterceptor } from 'nestjs-zod';
 
 import { OAuthProviderConfigFactory } from '../config/oauth-providers.config';
@@ -24,6 +25,10 @@ import { CustomZodValidationPipe } from './validation/zod-validation.pipe';
       provide: APP_INTERCEPTOR,
       useClass: ZodSerializerInterceptor,
     },
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
   ],
   imports: [
     ConfigModule.forRoot({
@@ -34,6 +39,14 @@ import { CustomZodValidationPipe } from './validation/zod-validation.pipe';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: OAuthProviderConfigFactory,
+    }),
+    ThrottlerModule.forRoot({
+      throttlers: [
+        {
+          ttl: 10000,
+          limit: 10,
+        },
+      ],
     }),
     PrismaModule,
     UsersModule,

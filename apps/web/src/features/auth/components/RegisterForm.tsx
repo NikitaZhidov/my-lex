@@ -3,6 +3,8 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
+import { useState } from 'react';
+import { GoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { Controller, useForm } from 'react-hook-form';
 
 import { CreateUser, CreateUserSchema } from '@my-lex/shared-models';
@@ -24,6 +26,7 @@ import {
 import { useRegisterMutation } from '../hooks/userRegisterMutation';
 
 import { APP_ROUTES } from '@/constants';
+import { recaptchaEnabled } from '@/features/recaptcha';
 import ErrorAlerts from '@/shared/ui/ErrorAlerts';
 import FormFieldError from '@/shared/ui/FormFieldError';
 
@@ -34,6 +37,7 @@ export interface RegisterFormProps {
 const RegisterForm = ({ className }: RegisterFormProps) => {
   const t = useTranslations();
 
+  const [recaptcha, setRecaptcha] = useState('');
   const { register, isRegisterLoading, parsedError } = useRegisterMutation();
 
   const form = useForm({
@@ -47,7 +51,7 @@ const RegisterForm = ({ className }: RegisterFormProps) => {
   });
 
   const onSubmit = (registerInfo: CreateUser) => {
-    register(registerInfo);
+    register({ ...registerInfo, recaptcha });
   };
 
   return (
@@ -171,6 +175,8 @@ const RegisterForm = ({ className }: RegisterFormProps) => {
       </CardContent>
 
       <CardFooter className='flex flex-col gap-2'>
+        {recaptchaEnabled() && <GoogleReCaptcha onVerify={setRecaptcha} />}
+
         <Button
           disabled={isRegisterLoading}
           form='register-form'

@@ -3,6 +3,8 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
+import { useState } from 'react';
+import { GoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { Controller, useForm } from 'react-hook-form';
 import { FaGoogle } from 'react-icons/fa';
 
@@ -28,6 +30,7 @@ import {
 } from '../hooks/useLoginMutation';
 
 import { APP_ROUTES } from '@/constants';
+import { recaptchaEnabled } from '@/features/recaptcha';
 import ErrorAlerts from '@/shared/ui/ErrorAlerts';
 import FormFieldError from '@/shared/ui/FormFieldError';
 
@@ -37,6 +40,8 @@ export interface LoginFormProps {
 
 const LoginForm = ({ className }: LoginFormProps) => {
   const t = useTranslations();
+
+  const [recaptcha, setRecaptcha] = useState('');
 
   const { login, isLoginLoading, parsedError } = useLoginMutation();
   const { login: loginWithProvider, isLoading: isLoginWithProviderLoading } =
@@ -51,7 +56,7 @@ const LoginForm = ({ className }: LoginFormProps) => {
   });
 
   const onSubmit = (loginInfo: LoginUser) => {
-    login(loginInfo);
+    login({ ...loginInfo, recaptcha });
   };
 
   return (
@@ -125,10 +130,12 @@ const LoginForm = ({ className }: LoginFormProps) => {
           </FieldGroup>
         </form>
 
-        <ErrorAlerts parsedError={parsedError} />
+        <ErrorAlerts className='max-w-100' parsedError={parsedError} />
       </CardContent>
 
       <CardFooter className='flex flex-col gap-2'>
+        {recaptchaEnabled() && <GoogleReCaptcha onVerify={setRecaptcha} />}
+
         <Button
           disabled={isLoginLoading}
           type='submit'

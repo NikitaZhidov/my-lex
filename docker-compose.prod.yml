@@ -73,6 +73,8 @@ services:
       - OPENAI_API_KEY=${OPENAI_API_KEY}
       - GOOGLE_AI_API_KEY=${GOOGLE_AI_API_KEY}
 
+      - GOOGLE_RECAPTCHA_SECRET_KEY=${GOOGLE_RECAPTCHA_SECRET_KEY}
+
   web:
     container_name: my-lex-web
     image: ${DOCKER_REGISTRY}/my-lex/web:latest

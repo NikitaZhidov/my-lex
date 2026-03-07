@@ -3,9 +3,6 @@ FROM node:22 AS builder
 
 WORKDIR /app
 
-ARG NEXT_PUBLIC_API_BASE_URL
-ENV NEXT_PUBLIC_API_BASE_URL=${NEXT_PUBLIC_API_BASE_URL}
-
 COPY package*.json ./
 COPY nx.json tsconfig.base.json tsconfig.json ./
 
@@ -14,6 +11,12 @@ COPY packages/shared-models/package.json ./packages/shared-models/package.json
 COPY packages/ui/package.json ./packages/ui/package.json
 
 RUN npm ci
+
+ARG NEXT_PUBLIC_API_BASE_URL
+ENV NEXT_PUBLIC_API_BASE_URL=${NEXT_PUBLIC_API_BASE_URL}
+
+ARG NEXT_PUBLIC_GOOGLE_RECAPTCHA_SITE_KEY
+ENV NEXT_PUBLIC_GOOGLE_RECAPTCHA_SITE_KEY=${NEXT_PUBLIC_GOOGLE_RECAPTCHA_SITE_KEY}
 
 COPY . .
 
