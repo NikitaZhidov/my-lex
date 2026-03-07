@@ -3,6 +3,7 @@ node_modules
 .nx
 .vscode
 .git
+.github
 **/.next
 **/dist
 **/build
