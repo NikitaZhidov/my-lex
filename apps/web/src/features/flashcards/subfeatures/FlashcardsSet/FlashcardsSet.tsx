@@ -24,12 +24,15 @@ export const FlashcardsSet = ({ flashcards }: FlashcardsSetProps) => {
   return (
     <div className='flex flex-col gap-4 pb-4 h-full'>
       {hasFlashcards ? (
-        <div className='w-full flex flex-col gap-16 flex-auto'>
+        <div className='w-full flex flex-col md:gap-16 sm:gap-12 gap-10 flex-auto'>
           <FlashcardsLearningCarousel flashcards={flashcards} />
 
-          <div className='flex flex-col gap-4 flex-auto sm:px-6 px-2'>
+          <div className='flex flex-col gap-4 flex-auto md:px-6 sm:px-2'>
             {flashcards.map(card => (
-              <Card key={card.id} className='py-2 px-6'>
+              <Card
+                key={card.id}
+                className='py-2 sm:px-6 px-2 sm:max-h-96 max-h-80 overflow-y-auto'
+              >
                 <FlashcardOverview className='pb-6' flashcard={card} />
               </Card>
             ))}

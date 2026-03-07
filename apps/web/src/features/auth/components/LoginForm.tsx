@@ -33,6 +33,7 @@ import { APP_ROUTES } from '@/constants';
 import { recaptchaEnabled } from '@/features/recaptcha';
 import ErrorAlerts from '@/shared/ui/ErrorAlerts';
 import FormFieldError from '@/shared/ui/FormFieldError';
+import { cn } from '@/shared/utils';
 
 export interface LoginFormProps {
   className?: string;
@@ -60,7 +61,12 @@ const LoginForm = ({ className }: LoginFormProps) => {
   };
 
   return (
-    <Card className={className}>
+    <Card
+      className={cn(
+        className,
+        'border-none sm:border-solid shadow-none sm:shadow-sm',
+      )}
+    >
       <CardHeader>
         <CardTitle>{t('auth.login')}</CardTitle>
 

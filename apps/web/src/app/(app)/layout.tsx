@@ -23,10 +23,7 @@ export default async function AppLayout({ children }: PropsWithChildren) {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <div className='min-h-screen w-full flex'>
-        <AppSidebar
-          className='max-h-screen h-screen sticky top-0'
-          initialCollapsedState={sidebarInitialState}
-        />
+        <AppSidebar initialCollapsedState={sidebarInitialState} />
 
         <div className='flex flex-col flex-auto bg-sidebar'>
           <AppHeader className='sticky top-0 bg-background shadow-xs z-10' />

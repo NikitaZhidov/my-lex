@@ -33,8 +33,8 @@ export const FlashcardsLearningCarousel = ({
 
   return (
     <FlashcardsLearningCarouselProvider flashcards={flashcards}>
-      <div className={cn('flex flex-col gap-2', className)}>
-        <FlashcardsLearningCarouselMainView />
+      <div className={cn('flex flex-col gap-2 max-w-full', className)}>
+        <FlashcardsLearningCarouselMainView className='max-w-full overflow-hidden' />
 
         <FlashcardsLearningCarouselFooter />
       </div>

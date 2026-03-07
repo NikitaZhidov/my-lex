@@ -80,7 +80,7 @@ export const FlashcardOverview = ({
 
   return (
     <div ref={containerRef} className={cn('flex flex-col gap-0.5', className)}>
-      <div className='flex justify-end gap-2'>
+      <div className='flex justify-end gap-2 bg-card'>
         {(showEditButton ?? true) && (
           <Button
             size='icon'

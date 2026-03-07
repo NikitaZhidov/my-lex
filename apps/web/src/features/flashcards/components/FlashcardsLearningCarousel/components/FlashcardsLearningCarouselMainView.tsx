@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from 'motion/react';
+import { motion } from 'motion/react';
 import { useMemo } from 'react';
 
 import { useFlashcardsLearningCarouselStore } from '../hooks/useFlashcardsLearningCarouselStore';
@@ -9,7 +9,16 @@ import {
   FlippableFlashcardProps,
 } from '@/features/flashcards';
 
-export const FlashcardsLearningCarouselMainView = () => {
+export const mainViewHeightClasses =
+  'sm:h-100 sm:min-h-100 sm:max-h-100 h-80 min-h-80 max-h-80';
+
+export interface FlashcardsLearningCarouselMainViewProps {
+  className?: string;
+}
+
+export const FlashcardsLearningCarouselMainView = ({
+  className,
+}: FlashcardsLearningCarouselMainViewProps) => {
   const {
     state,
     dispatch,
@@ -26,20 +35,22 @@ export const FlashcardsLearningCarouselMainView = () => {
 
   if (!activeFlashcard) {
     return (
-      <FlashcardsLearningCarouselResultsOverview className='h-100 min-h-100' />
+      <FlashcardsLearningCarouselResultsOverview
+        className={mainViewHeightClasses}
+      />
     );
   }
 
   return (
-    <AnimatePresence mode='wait'>
+    <div className={className}>
       <motion.div
         key={state.activeIndex}
         initial={{
-          x: 150 * state.direction,
+          translateX: 150 * state.direction,
           opacity: 0,
           rotate: 5 * state.direction,
         }}
-        animate={{ x: 0, opacity: 1, rotate: 0 }}
+        animate={{ translateX: 0, opacity: 1, rotate: 0 }}
         transition={{
           duration: 0.2,
           ease: 'easeInOut',
@@ -47,13 +58,13 @@ export const FlashcardsLearningCarouselMainView = () => {
         style={{ perspective: 1000 }}
       >
         <FlippableFlashcard
-          className='h-100 min-h-100 max-h-100'
+          className={mainViewHeightClasses}
           view={state.view}
           onViewChange={changeView}
           flashcard={activeFlashcard}
           flipAnimation={state.showFlipAnimation}
         />
       </motion.div>
-    </AnimatePresence>
+    </div>
   );
 };

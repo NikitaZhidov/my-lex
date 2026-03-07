@@ -16,7 +16,9 @@ const AppGreeting = ({ className }: AppGreetingProps) => {
   const firstName = profile?.name?.split(' ')[0];
 
   return (
-    <div className={cn(className, 'text-5xl text-center')}>
+    <div
+      className={cn(className, 'md:text-5xl sm:text-4xl text-3xl text-center')}
+    >
       {t('home.greeting', { name: firstName ?? '' })}
     </div>
   );
