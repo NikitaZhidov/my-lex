@@ -1,6 +1,7 @@
 import { PropsWithChildren } from 'react';
 
 import { LocaleSwitcher, ThemeToggle } from '@/shared/components';
+import { ReCaptchaProvider } from '@/shared/providers/ReCaptchaProvider';
 
 const AuthLayout = ({ children }: PropsWithChildren) => {
   return (
@@ -10,7 +11,7 @@ const AuthLayout = ({ children }: PropsWithChildren) => {
 
         <ThemeToggle />
       </div>
-      {children}
+      <ReCaptchaProvider>{children}</ReCaptchaProvider>
     </div>
   );
 };

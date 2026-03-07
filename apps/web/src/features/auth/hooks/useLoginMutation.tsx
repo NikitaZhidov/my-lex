@@ -24,7 +24,11 @@ export function useLoginMutation() {
 
   const { mutate: login, isPending: isLoginLoading } = useMutation({
     mutationKey: ['login'],
-    mutationFn: (loginInfo: LoginUser) => authService.login(loginInfo),
+    mutationFn: (loginInfo: LoginUser & { recaptcha?: string }) =>
+      authService.login(
+        { email: loginInfo.email, password: loginInfo.password },
+        loginInfo.recaptcha,
+      ),
     onMutate: () => setParsedError(undefined),
     onError: parseAndSetError(t, setParsedError),
     onSuccess: () => router.push(HOME_ROUTE),

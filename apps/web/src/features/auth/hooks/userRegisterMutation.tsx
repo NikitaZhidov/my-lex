@@ -20,8 +20,16 @@ export const useRegisterMutation = () => {
 
   const { mutate: register, isPending: isRegisterLoading } = useMutation({
     mutationKey: ['register'],
-    mutationFn: (registerInfo: CreateUser) =>
-      authService.register(registerInfo),
+    mutationFn: (registerInfo: CreateUser & { recaptcha?: string }) =>
+      authService.register(
+        {
+          email: registerInfo.email,
+          password: registerInfo.password,
+          passwordRepeat: registerInfo.passwordRepeat,
+          name: registerInfo.name,
+        },
+        registerInfo.recaptcha,
+      ),
     onMutate: () => setParsedError(undefined),
     onSuccess() {
       toastSuccess(t('auth.registrationWasSuccessful'));
