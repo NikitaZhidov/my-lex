@@ -45,6 +45,7 @@ async function bootstrap() {
         secure: JSON.parse(configService.getOrThrow<string>('SESSION_SECURE')),
         sameSite: 'lax',
       },
+      proxy: JSON.parse(configService.getOrThrow<string>('SESSION_SECURE')),
       store: new RedisStore({
         client: redisClient,
         prefix: configService.getOrThrow<string>('SESSION_FOLDER'),
