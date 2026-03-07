@@ -8,7 +8,7 @@ import {
   AIModelProviderName,
 } from '../types/ai-model-provider';
 
-export const AI_MODEL = Symbol('AI model');
+export const APP_DEFAULT_AI_MODEL = Symbol('AI model');
 
 export const AIModelProviderFactory = (
   configService: ConfigService,
@@ -27,7 +27,9 @@ export const AIModelProviderFactory = (
       );
     default: {
       console.warn('YOU ARE USING MOCK AI MODEL PROVIDER!');
-      return new MockAIModelProvider();
+      return new MockAIModelProvider(
+        'Hello! No AI model is provided. Check the configuration of the server :)',
+      );
     }
   }
 };

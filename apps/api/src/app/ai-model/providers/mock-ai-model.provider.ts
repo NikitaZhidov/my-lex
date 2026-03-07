@@ -1,21 +1,20 @@
 import { AIModelProvider } from '../types/ai-model-provider';
 
 export class MockAIModelProvider implements AIModelProvider {
-  private readonly responseTextData = `Hello! No AI model is activated in this project. To change this you need to update the configuration of the server :)`;
+  constructor(
+    protected readonly responseTextData: string,
+    protected readonly includePromptInResponse = true,
+  ) {}
 
-  responseText(prompt: string): Promise<string> {
-    return new Promise<string>(res => res(this.responseTextData));
+  async responseText(prompt: string): Promise<string> {
+    return new Promise<string>(res => res(this.getResponseText(prompt)));
   }
 
   async *responseTextStream(
     prompt: string,
     abortSignal?: AbortSignal,
   ): AsyncIterable<string> {
-    const responseTextDataParts = (
-      this.responseTextData +
-      '\n' +
-      `Your prompt: ${prompt}`
-    )
+    const responseTextDataParts = this.getResponseText(prompt)
       .split(' ')
       .map(part => (part += ' '));
     responseTextDataParts[responseTextDataParts.length - 1] =
@@ -28,5 +27,13 @@ export class MockAIModelProvider implements AIModelProvider {
     }
 
     return;
+  }
+
+  private getResponseText(prompt: string) {
+    const promptSuffix = this.includePromptInResponse
+      ? `\n\nYour prompt: ${prompt}`
+      : '';
+
+    return this.responseTextData + promptSuffix;
   }
 }
