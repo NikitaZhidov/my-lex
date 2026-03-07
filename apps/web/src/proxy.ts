@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 import { APP_ROUTES, AUTH_ROUTES } from './constants';
-import { cookies } from 'next/headers';
 
 // TODO: SHOULD BE IN SYNC WITH SESSION_NAME from env
 const SESSION_NAME = 'session';
@@ -11,9 +10,14 @@ export async function proxy(request: NextRequest) {
   const hasSession = request.cookies.get(SESSION_NAME)?.value;
 
   if (url.includes(APP_ROUTES.LOGOUT)) {
-    const cookieStore = await cookies();
-    cookieStore.delete(SESSION_NAME);
-    return NextResponse.redirect(new URL(APP_ROUTES.LOGIN, request.url));
+    const res = NextResponse.redirect(new URL(APP_ROUTES.LOGIN, request.url));
+
+    res.cookies.delete({
+      name: SESSION_NAME,
+      path: '/',
+    });
+
+    return res;
   }
 
   const isAuthPage = AUTH_ROUTES.some(authRoute => url.includes(authRoute));
