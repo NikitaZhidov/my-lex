@@ -67,6 +67,14 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
 
+      - name: Cache Docker layers
+        uses: actions/cache@v5
+        with:
+          path: /tmp/.my-lex-cache
+          key: ${{ runner.os }}-my-lex-cache-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-my-lex-cache-
+
       # WEB IMAGE
       - name: Extract metadata for WEB IMAGE
         id: web_meta
@@ -89,8 +97,8 @@ jobs:
           build-args: |
             NEXT_PUBLIC_API_BASE_URL=${{ secrets.API_BASE_URL }}
             NEXT_PUBLIC_GOOGLE_RECAPTCHA_SITE_KEY=${{ secrets.GOOGLE_RECAPTCHA_SITE_KEY }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=local,src=/tmp/.my-lex-cache/web-cache
+          cache-to: type=local,dest=/tmp/.my-lex-cache-new/web-cache,mode=max
 
       # API IMAGE
       - name: Extract metadata for API IMAGE
@@ -111,8 +119,13 @@ jobs:
           file: ./apps/api/Dockerfile
           tags: ${{ steps.api_meta.outputs.tags }}
           labels: ${{ steps.api_meta.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=local,src=/tmp/.my-lex-cache/api-cache
+          cache-to: type=local,dest=/tmp/.my-lex-cache-new/api-cache,mode=max
+
+      - name: Move cache
+        run: |
+          rm -rf /tmp/.my-lex-cache
+          mv /tmp/.my-lex-cache-new /tmp/.my-lex-cache
 
   deploy:
     needs: build-and-push-apps-images
