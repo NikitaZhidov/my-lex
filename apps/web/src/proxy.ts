@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 import { APP_ROUTES, AUTH_ROUTES } from './constants';
+import { authService } from './features/auth/services/auth.service';
 
 // TODO: SHOULD BE IN SYNC WITH SESSION_NAME from env
 const SESSION_NAME = 'session';
@@ -12,9 +13,15 @@ export async function proxy(request: NextRequest) {
   if (url.includes(APP_ROUTES.LOGOUT)) {
     const res = NextResponse.redirect(new URL(APP_ROUTES.LOGIN, request.url));
 
-    res.cookies.delete({
+    await authService.logout().catch(console.error);
+
+    const domain = new URL(request.url).hostname;
+
+    res.cookies.set({
       name: SESSION_NAME,
-      path: '/',
+      value: '',
+      domain,
+      maxAge: 0,
     });
 
     return res;
