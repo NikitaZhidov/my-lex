@@ -15,7 +15,8 @@ export async function proxy(request: NextRequest) {
 
     await authService.logout().catch(console.error);
 
-    const domain = new URL(request.url).hostname;
+    // TODO: change this if the api is on another domain
+    const domain = new URL(process.env.NEXT_PUBLIC_API_BASE_URL ?? '').hostname;
 
     res.cookies.set({
       name: SESSION_NAME,
