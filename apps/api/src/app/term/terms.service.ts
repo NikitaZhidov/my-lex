@@ -4,18 +4,20 @@ import { Observable } from 'rxjs';
 import { SupportedLanguage } from '@my-lex/locales';
 import { TermSettings } from '@my-lex/shared-models';
 
-import { LLMService } from '../llm/llm.service';
+import { UserAIModelService } from '../user-ai-model/user-ai-model.service';
+import { UserEntity } from '../users/domain-entities/user-entity';
 
 import { LexicalPromptBuilderFactory } from './lexical-prompt-builders';
 
 @Injectable()
 export class TermsService {
   constructor(
-    private readonly llm: LLMService,
+    private readonly userAIModelService: UserAIModelService,
     private readonly promptBuilderFactory: LexicalPromptBuilderFactory,
   ) {}
 
   getTermStreamDefinition(
+    userId: UserEntity['id'],
     term: string,
     locale: SupportedLanguage,
     settings: TermSettings = {},
@@ -34,7 +36,8 @@ export class TermsService {
 
       (async () => {
         try {
-          for await (const chunk of this.llm.streamResponse(
+          for await (const chunk of await this.userAIModelService.responseTextStream(
+            userId,
             prompt,
             controller.signal,
           )) {

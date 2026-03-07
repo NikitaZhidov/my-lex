@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 
-import { LLMModule } from '../llm/llm.module';
+import { UserAIModelModule } from '../user-ai-model/user-ai-model.module';
 import { UsersModule } from '../users/users.module';
 
 import { LexicalPromptBuilderFactory } from './lexical-prompt-builders';
@@ -10,6 +10,6 @@ import { TermsService } from './terms.service';
 @Module({
   controllers: [TermsController],
   providers: [TermsService, LexicalPromptBuilderFactory],
-  imports: [LLMModule, UsersModule],
+  imports: [UserAIModelModule, UsersModule],
 })
 export class TermsModule {}

@@ -2,18 +2,18 @@ import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
 import {
-  AI_MODEL,
   AIModelProviderFactory,
+  APP_DEFAULT_AI_MODEL,
 } from './factories/ai-model-provider.factory';
 
 @Module({
   providers: [
     {
-      provide: AI_MODEL,
+      provide: APP_DEFAULT_AI_MODEL,
       useFactory: AIModelProviderFactory,
       inject: [ConfigService],
     },
   ],
-  exports: [AI_MODEL],
+  exports: [APP_DEFAULT_AI_MODEL],
 })
 export class AIModelModule {}
