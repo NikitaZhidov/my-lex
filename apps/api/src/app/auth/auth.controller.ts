@@ -48,7 +48,7 @@ export class AuthController {
     @Session() session: Request['session'],
     @Res({ passthrough: true }) res: Response,
   ) {
-    return this.authService.logout(
+    await this.authService.logout(
       this.loginHandlerFactory.create(session, res),
     );
   }

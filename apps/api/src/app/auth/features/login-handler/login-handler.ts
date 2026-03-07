@@ -45,6 +45,8 @@ class ExpressLoginHandler implements LoginHandler {
   }
 
   async clear(): Promise<void> {
+    const cookieOptions = this.session.cookie;
+
     return new Promise<void>((resolve, reject) => {
       this.session.destroy(err => {
         if (err) {
@@ -60,6 +62,10 @@ class ExpressLoginHandler implements LoginHandler {
 
       this.response.clearCookie(
         this.configService.getOrThrow<string>('SESSION_NAME'),
+        {
+          domain: cookieOptions.domain,
+          path: cookieOptions.path,
+        },
       );
       resolve();
     });
