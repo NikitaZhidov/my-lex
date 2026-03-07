@@ -29,6 +29,7 @@ import { APP_ROUTES } from '@/constants';
 import { recaptchaEnabled } from '@/features/recaptcha';
 import ErrorAlerts from '@/shared/ui/ErrorAlerts';
 import FormFieldError from '@/shared/ui/FormFieldError';
+import { cn } from '@/shared/utils';
 
 export interface RegisterFormProps {
   className?: string;
@@ -55,7 +56,12 @@ const RegisterForm = ({ className }: RegisterFormProps) => {
   };
 
   return (
-    <Card className={className}>
+    <Card
+      className={cn(
+        className,
+        'border-none sm:border-solid shadow-none sm:shadow-sm',
+      )}
+    >
       <CardHeader>
         <CardTitle>{t('auth.signUp')}</CardTitle>
 

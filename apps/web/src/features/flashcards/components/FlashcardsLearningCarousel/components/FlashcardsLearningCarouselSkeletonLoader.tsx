@@ -1,9 +1,12 @@
 import { Skeleton } from '@my-lex/ui';
 
+import { mainViewHeightClasses } from './FlashcardsLearningCarouselMainView';
+import { cn } from '@/shared/utils';
+
 export const FlashcardsLearningCarouselSkeletonLoader = () => {
   return (
     <div className='flex flex-col gap-2'>
-      <Skeleton className='w-full h-100 rounded-lg' />
+      <Skeleton className={cn('w-full rounded-lg', mainViewHeightClasses)} />
 
       <div className='flex items-center justify-center gap-4'>
         <Skeleton className='w-9 h-9' />

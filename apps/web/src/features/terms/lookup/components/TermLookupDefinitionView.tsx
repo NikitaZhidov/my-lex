@@ -93,8 +93,8 @@ export const TermLookupDefinitionView = () => {
           animate={{ opacity: 1, translateY: 0 }}
           transition={{ duration: 0.2 }}
         >
-          <Card>
-            <CardHeader>
+          <Card className='sm:py-6 py-4'>
+            <CardHeader className='md:pr-6 sm:pr-4 pr-3'>
               {edit ? (
                 <Input value={term} onChange={e => setTerm(e.target.value)} />
               ) : (
@@ -142,7 +142,7 @@ export const TermLookupDefinitionView = () => {
               )}
             </CardContent>
 
-            <CardFooter>
+            <CardFooter className='sticky bottom-4 bg-card'>
               {!streaming && (
                 <Button
                   onClick={removeTerm}
