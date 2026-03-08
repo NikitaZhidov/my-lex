@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
-import { Flashcard, User } from '../../generated/prisma/client';
+import { Flashcard, User } from '@my-lex/prisma-generated';
+
 import { PrismaService } from '../prisma/prisma.service';
 
 import { SaveFlashcardDto } from './dto/save-flashcard.dto';

@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
+import { Flashcard } from '@my-lex/prisma-generated';
 import { Flashcard as FlashcardDto } from '@my-lex/shared-models';
-
-import { Flashcard } from '../../../generated/prisma/client';
 
 @Injectable()
 export class FlashcardsMapper {

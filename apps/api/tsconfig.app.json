@@ -28,6 +28,9 @@
       "path": "../../packages/locales/tsconfig.lib.json"
     },
     {
+      "path": "../../packages/prisma-generated/tsconfig.lib.json"
+    },
+    {
       "path": "../../packages/shared-models/tsconfig.lib.json"
     }
   ]

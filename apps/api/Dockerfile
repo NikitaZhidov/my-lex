@@ -8,6 +8,7 @@ COPY nx.json tsconfig.base.json tsconfig.json ./
 
 COPY packages/locales/package.json ./packages/locales/package.json
 COPY packages/shared-models/package.json ./packages/shared-models/package.json
+COPY packages/prisma-generated/package.json ./packages/prisma-generated/package.json
 
 RUN npm ci
 
@@ -22,9 +23,8 @@ FROM node:22-alpine AS runner
 WORKDIR /app
 
 COPY --from=builder /app/apps/api/dist/ ./
-COPY --from=builder /app/apps/api/prisma ./prisma
-COPY --from=builder /app/apps/api/prisma.config.ts ./
+COPY --from=builder /app/prisma ./prisma
 
 RUN npm ci --omit=dev
 
-CMD sh -c "npx prisma migrate deploy && node ./main.js"
+CMD sh -c "cd /app/prisma && npx prisma migrate deploy && node ../main.js"
