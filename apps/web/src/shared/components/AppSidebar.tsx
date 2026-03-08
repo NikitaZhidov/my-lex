@@ -98,12 +98,12 @@ export const AppSidebar = ({
       )}
       <aside
         className={cn(
-          'overflow-visible w-10 transition-[width,translate,min-width] border-r border-r-border bg-background pt-2.5 max-h-screen h-screen top-0 fixed md:sticky z-50',
+          'overflow-visible w-10 border-r border-r-border bg-background pt-2.5 max-h-screen h-screen top-0 fixed md:sticky z-50',
           collapsedSidebarMinWidthClass,
           className,
           collapsed
-            ? `${collapsedSidebarWidthClass} -translate-x-full md:translate-x-0`
-            : 'w-60 min-w-60 translate-x-0',
+            ? `${collapsedSidebarWidthClass} -translate-x-full md:translate-x-0 transition-[width,translate,min-width]`
+            : 'w-60 min-w-60 translate-x-0 transition-[width,min-width]',
         )}
       >
         <div className='flex flex-col gap-4 relative'>
