@@ -86,7 +86,6 @@ export const TermLookupTextarea = () => {
                     disabled={streaming}
                     onClick={markSettingsAsChecked}
                     size='icon'
-                    type='submit'
                     variant='outline'
                     className='relative'
                   >
