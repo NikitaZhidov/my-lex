@@ -57,7 +57,7 @@ jobs:
 
       - name: Prepare .env files
         run: |
-          cp ./env.e2e ./.env
+          cp ./.env.e2e ./.env
           cp ./apps/api/.env.e2e ./apps/api/.env
           cp ./apps/web/.env.e2e ./apps/web/.env
           cp ./apps/web-e2e/.env.template ./apps/web-e2e/.env
