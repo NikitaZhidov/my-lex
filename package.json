@@ -14,7 +14,7 @@
     "build:web": "nx build web",
     "serve-api": "nx build api && dotenv -e ./apps/api/.env node apps/api/dist/main.js",
     "e2e:web": "dotenv -e ./apps/web-e2e/.env ts-node apps/web-e2e/src/before-tests.ts && nx e2e web-e2e",
-    "e2e:db-deploy": "set POSTGRES_URL=postgresql://postgres:123456@localhost:5432/my-lex?schema=public && cd prisma && prisma migrate deploy",
+    "e2e:db-deploy": "export POSTGRES_URL=postgresql://postgres:123456@localhost:5432/my-lex?schema=public && cd prisma && prisma migrate deploy",
     "e2e:api-ci": "nx e2e api-e2e",
     "e2e:web-ci": "start-server-and-test serve-api --expect 401 http://localhost:3001/api/users/profile e2e:web"
   },
