@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "local-dev:db-push": "dotenv -e ./.env set POSTGRES_URL=postgresql://postgres:123456@localhost:5432/my-lex?schema=public && cd prisma && prisma db push",
+    "local-dev:db-push": "set POSTGRES_URL=postgresql://postgres:123456@localhost:5432/my-lex?schema=public && cd prisma && prisma db push",
     "local-dev:db-migrate": "set POSTGRES_URL=postgresql://postgres:123456@localhost:5432/my-lex?schema=public && cd prisma && prisma migrate dev",
     "local-dev:db-reset": "set POSTGRES_URL=postgresql://postgres:123456@localhost:5432/my-lex?schema=public && cd prisma && prisma migrate reset",
     "local-dev:db-deploy": "set POSTGRES_URL=postgresql://postgres:123456@localhost:5432/my-lex?schema=public && cd prisma && prisma migrate deploy",
