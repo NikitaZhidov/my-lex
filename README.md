@@ -90,7 +90,7 @@ It's an example of a fullstack application using:
 
 ## App overview
 
-- The interface is simple, clean, and intuitive with so there is no need for long or detailed instructions.
+- The interface is simple, clean, and intuitive so there is no need for long or detailed instructions.
 
 #### AI vocabulary
 
