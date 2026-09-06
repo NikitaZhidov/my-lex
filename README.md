@@ -9,10 +9,6 @@
   <br>
 </p>
 
-<p align="center">
-  <a href="https://my-lex.online/"><strong>my-lex.online</strong></a>
-  <br>
-</p>
 
 <p align="center">
   <img width="800" alt="ai vocabulary" src="readme-assets/ai-vocab.png" />
@@ -20,9 +16,6 @@
 
 ## Demo
 
-You can try My Lex here: <a href="https://my-lex.online/"><strong>my-lex.online</strong></a>
-
-- Or
 
 Build and run the app locally with just a couple of commands:
 
